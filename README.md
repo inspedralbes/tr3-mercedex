@@ -1,19 +1,28 @@
-# transversals
-Esquema mínim de carpetes pels projectes transversals
+# Mercedex
+Mercedex es un proyecto que consta en mejorar la pagina web de la marca Mercedes.
 
-És obligatori seguir aquesta estructura tot i que la podeu ampliar.
+### Problemas de la web actual de Mercedes:
+ * Tarda mucho en cargar por primera vez
+ * No tiene un diseño atractivo. (Sobre todo la landing page)
+ * La navegación es confusa
+ * En la ruta de la pagina aparece la extension .html
+ * Fuente corporativa poco atractiva
 
-## Atenció
-Un cop comenceu heu de canviar aquesta explicació amb la corresponent al vostre projecte (utilitzant markdown)
+ ![Imagen de la pagina web actual de Mercedes](./landing%20mercedes.PNG)
 
-## Docker & Docker compose
-El projecte s'ha de poder desplegar en mode desenvolupament simplement fent docker compose up
+## Integrantes
+ * Mario Garcia
+ * Ivan Barbero
 
-# Aquest fitxer ha de contenir com a mínim:
- * Nom dels integrants
- * Nom del projecte
- * Petita descripció
- * Adreça del gestor de tasques (taiga, jira, trello...)
- * Adreça del prototip gràfic del projecte (Penpot, figma, moqups...)
- * URL de producció (quan la tingueu)
- * Estat: (explicació d'en quin punt està)
+## Links del proyecto
+[Taiga](https://tree.taiga.io/project/ivanbs-transversal_03_mercedes/timeline)
+
+[Figma](https://www.figma.com/file/0yvh7z2wzPzCndx9s8bsh3/Mercedes?type=design&node-id=2-2&mode=design&t=pyvG2NOEjiKfof8t-0)
+
+URL de produccion no disponible
+
+## Estado
+Este proyecto esta en la primera etapa de desarrollo. 
+
+
+
