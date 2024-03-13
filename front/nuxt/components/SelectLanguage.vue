@@ -1,18 +1,44 @@
 <template>
-<div id="dropdownLanguage" class="relative">
-  <button class="rounded-full focus:ring-2 focus:outline-none focus:ring-gray-400"><img class="size-6 rounded-full object-cover" src="../public/img/flags/spain.jpg" alt=""></button>
+  <div id="language-container" class="relative">
+    <button class="flex items-center justify-center rounded-full focus:ring-2 focus:outline-none focus:ring-gray-400"
+      @click="dropDown()"><img class="size-5 rounded-full object-cover" src="../public/img/flags/spain.jpg"
+        alt=""></button>
 
-    <div class="absolute mt-10 rounded-lg shadow-lg">
-      <button class="flex gap-x-2 items-center justify-center w-full px-2 py-2 text-left hover:bg-blue-500"><img class="size-6 rounded-full object-cover" src="../public/img/flags/usa.png" alt=""> English</button>
-      <button class="flex items-center w-full px-4 py-2 text-left hover:bg-blue-500">Español</button>
-      <button class="flex items-center w-full px-4 py-2 text-left hover:bg-blue-500">Deutsch</button>
-      <button class="flex items-center w-full px-4 py-2 text-left hover:bg-blue-500">Français</button>
+    <div id="dropdownLanguage"
+    :class="{ 'absolute mt-2 w-max  rounded-lg shadow-lg bg-slate-400/50 overflow-hidden modal': true, 'isOpen': isOpen}">
+      <LenguageBtn flag="/img/flags/usa.png" language="English" />
+      <LenguageBtn flag="/img/flags/italy.png" language="Italiano" />
+      <LenguageBtn flag="/img/flags/france.png" language="Français" />
+      <LenguageBtn flag="/img/flags/spain.jpg" language="Español" />
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    
+export default {
+  data() {
+    return {
+      isOpen: false
+    }
+  },
+  methods: {
+    dropDown() {
+      console.log('click')
+      this.isOpen = !this.isOpen
+    }
   }
+}
 </script>
+
+<style>
+
+
+.modal{
+  max-height: 0;
+  transition: max-height .3s ease-in-out;
+}
+
+.isOpen{
+  max-height: 200px;
+}
+</style>

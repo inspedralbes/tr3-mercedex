@@ -9,9 +9,9 @@
                     <NuxtLink to="/accesorios">Accesorios</NuxtLink>
                     <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
-        <div class="flex gap-x-3 text-white [&>a:hover]:text-green-300 [&>a]:transition">
+        <div class="flex gap-x-3 items-center justify-center text-white [&>a:hover]:text-green-300 [&>a]:transition">
             <NuxtLink to="/questions"><HelpIcon/></NuxtLink>
-            <!-- Lenguage Flag -->
+            <SelectLanguage/>
             <NuxtLink to="/login"><UserIcon/></NuxtLink>
         </div>
     </div>
