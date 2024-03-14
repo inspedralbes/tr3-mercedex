@@ -4,6 +4,7 @@ export const useCartStore = defineStore("cart", {
     state: () => ({
         cart: [],
         mostrarCartModal: false,
+        flag: "",
     }),
     actions: {
         addToCart(item) {
@@ -25,11 +26,22 @@ export const useCartStore = defineStore("cart", {
         clearCart() {
             this.cart = [];
         },
+
+        /* --------------------------------- GETTERS -------------------------------- */
         getCartModal() {
             return this.mostrarCartModal;
         },
+
+        getFlag() {
+            return this.flag;
+        },
+
+        /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
             this.mostrarCartModal = value;
+        },
+        setFlag(value) {
+            this.flag = value;
         },
     },
 });
