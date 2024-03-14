@@ -1,5 +1,5 @@
 <template>
-  <div id="language-container" class="relative flex items-center justify-center">
+  <div id="language-container" class="relative">
     <button class="flex items-center justify-center rounded-full focus:ring-2 focus:outline-none focus:ring-gray-400"
       @click="dropDown()"><img class="size-5 rounded-full object-cover" src="../public/img/flags/spain.jpg"
         alt=""></button>

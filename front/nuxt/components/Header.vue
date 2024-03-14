@@ -6,7 +6,7 @@
             <NuxtLink to="/buscar">Buscar</NuxtLink>
             <NuxtLink to="/asesoramiento">Asesoramiento</NuxtLink>
             <NuxtLink to="/servicios">Servicios</NuxtLink>
-            <NuxtLink to="/accesorios">Accesorios</NuxtLink>
+            <NuxtLink to="/tienda">Accesorios</NuxtLink>
             <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
 
@@ -18,7 +18,7 @@
             <NuxtLink to="/login">
                 <UserIcon />
             </NuxtLink>
-            <NuxtLink to="/tienda" @click="mostrarCarritoModal">
+            <NuxtLink v-if="cart" to="/tienda" @click="mostrarCarritoModal">
                 <CartIcon />
             </NuxtLink>
         </div>
@@ -52,6 +52,8 @@ export default {
         cerrarModal() {
             this.mostrarModal = false;
         }
+        
+        
     }
 }
 </script>
