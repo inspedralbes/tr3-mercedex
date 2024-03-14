@@ -1,7 +1,8 @@
 <template>
     <div class="flex justify-between items-center px-20 py-6 ">
         <img class="size-16" src="../public/img/mercedes-logo.png" alt="">
-        <nav class="flex justify-center gap-x-10 2xl:gap-x-20 text-white font-semibold [&>a:hover]:text-green-300 [&>a]:transition">
+        <nav
+            class="flex justify-center gap-x-10 2xl:gap-x-20 text-white font-semibold [&>a:hover]:text-green-300 [&>a]:transition">
             <NuxtLink to="/modelos">Nuestros modelos</NuxtLink>
             <NuxtLink to="/buscar">Buscar</NuxtLink>
             <NuxtLink to="/asesoramiento">Asesoramiento</NuxtLink>
@@ -14,11 +15,11 @@
             <NuxtLink to="/questions">
                 <HelpIcon />
             </NuxtLink>
-            <SelectLanguage/>
+            <SelectLanguage />
             <NuxtLink to="/login">
                 <UserIcon />
             </NuxtLink>
-            <NuxtLink v-if="cart" to="/tienda" @click="mostrarCarritoModal">
+            <NuxtLink v-if="cartIcon" @click="mostrarCarritoModal">
                 <CartIcon />
             </NuxtLink>
         </div>
@@ -31,18 +32,15 @@
 import CartModal from '@/components/CartModal.vue';
 
 export default {
-    components: {
-        CartModal
-    },
-    props: {
-        carrito: {
-            type: Array,
-            default: () => []
-        }
-    },
     data() {
         return {
-            mostrarModal: false
+            mostrarModal: false,
+            cartIcon: false
+        }
+    },
+    watch: {
+        '$route': function (to, from) {
+            this.cartIcon = to.path === '/tienda';
         }
     },
     methods: {
@@ -51,9 +49,10 @@ export default {
         },
         cerrarModal() {
             this.mostrarModal = false;
-        }
-        
-        
+        },
+    },
+    created() {
+        this.cartIcon = this.$route.path === '/tienda';
     }
 }
 </script>
