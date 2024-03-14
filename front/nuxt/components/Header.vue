@@ -7,7 +7,7 @@
             <NuxtLink to="/buscar">Buscar</NuxtLink>
             <NuxtLink to="/asesoramiento">Asesoramiento</NuxtLink>
             <NuxtLink to="/servicios">Servicios</NuxtLink>
-            <NuxtLink to="/tienda" @click="showCartIcon">Accesorios</NuxtLink>
+            <NuxtLink to="/tienda">Accesorios</NuxtLink>
             <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
 
@@ -30,7 +30,6 @@
 
 <script>
 import CartModal from '@/components/CartModal.vue';
-import { useCartStore } from '~/stores/counter';
 
 export default {
     data() {
