@@ -24,8 +24,11 @@
             </NuxtLink>
         </div>
         <!-- Otros elementos del header -->
+
         <CartModal :carrito="carrito" :cerrarModal="cerrarModal" />
+
     </div>
+    <CartModal v-if="mostrarModal" :carrito="carrito" :cerrarModal="cerrarModal" />
 </template>
 
 <script>

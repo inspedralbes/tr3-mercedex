@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Ruta devolver todos los productos
 Route::get('products', [ProductController::class, 'index']);
+//Ruta para vender un producto
+Route::put('ventas', [ProductController::class, 'update']);
