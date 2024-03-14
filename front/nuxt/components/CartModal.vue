@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="fixed inset-y-0 right-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div
+    :class="{ 'fixed inset-y-0 -right-96 flex items-center  transition-all ease-in-out duration-1000 justify-center z-50 bg-black bg-opacity-50': true, 'openModal': mostrarCartModal }">
       <div class="h-full bg-white p-4 shadow-md w-80">
         <button class="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
           @click="cerrarModal">Cerrar</button>
@@ -17,6 +18,7 @@
                   <p class="text-sm">{{ item.price }}€</p>
                   <button class="text-xs text-red-500" @click="mostrarConfirmacion(item.id)">Quitar</button>
                 </div>
+
               </div>
             </li>
           </ul>
@@ -29,6 +31,10 @@
           @click="cerrarModalYIrATienda">Ir a la tienda</button>
         <button @click="comprar">Comprar</button>
       </div>
+      <button v-if="cart.length === 0" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+        @click="cerrarModalYIrATienda">Ir a la tienda</button>
+
+
     </div>
   </div>
   <ConfirmationModal class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalConfirmacion"
@@ -36,6 +42,7 @@
 </template>
 
 <script>
+
 import { useCartStore } from '~/stores/counter';
 import ConfirmationModal from './ConfirmationModal.vue';
 import axios from 'axios';
@@ -55,6 +62,7 @@ export default {
       mostrarModalConfirmacion: false,
       itemAEliminar: null
     };
+
   },
   computed: {
     cart() {
@@ -91,3 +99,13 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+.openModal {
+  box-shadow: black 8px 2px 20px 2px;
+  right: 0;
+}
+</style>
+

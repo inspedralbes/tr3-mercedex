@@ -1,56 +1,61 @@
 <template>
     <div class="flex justify-between items-center px-20 py-6 ">
         <img class="size-16" src="../public/img/mercedes-logo.png" alt="">
-        <nav class="flex justify-center gap-x-20 text-white font-semibold [&>a:hover]:text-green-300 [&>a]:transition">
+        <nav
+            class="flex justify-center gap-x-10 2xl:gap-x-20 text-white font-semibold [&>a:hover]:text-green-300 [&>a]:transition">
             <NuxtLink to="/modelos">Nuestros modelos</NuxtLink>
             <NuxtLink to="/buscar">Buscar</NuxtLink>
             <NuxtLink to="/asesoramiento">Asesoramiento</NuxtLink>
             <NuxtLink to="/servicios">Servicios</NuxtLink>
-            <NuxtLink to="/accesorios">Accesorios</NuxtLink>
+            <NuxtLink to="/tienda">Accesorios</NuxtLink>
             <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
+
         <div class="flex gap-x-3 text-white [&>a:hover]:text-green-300 [&>a]:transition">
             <NuxtLink to="/questions">
                 <HelpIcon />
             </NuxtLink>
-            <!-- Lenguage Flag -->
+            <SelectLanguage />
             <NuxtLink to="/login">
                 <UserIcon />
             </NuxtLink>
-            <NuxtLink to="/tienda" @click="mostrarCarritoModal">
+            <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
                 <CartIcon />
             </NuxtLink>
         </div>
         <!-- Otros elementos del header -->
+
+        <CartModal :carrito="carrito" :cerrarModal="cerrarModal" />
+
     </div>
     <CartModal v-if="mostrarModal" :carrito="carrito" :cerrarModal="cerrarModal" />
 </template>
 
 <script>
 import CartModal from '@/components/CartModal.vue';
+import { useCartStore } from '@/stores/counter';
 
 export default {
-    components: {
-        CartModal
-    },
-    props: {
-        carrito: {
-            type: Array,
-            default: () => []
-        }
-    },
     data() {
         return {
-            mostrarModal: false
+            cartIcon: false
         }
     },
+    watch: {
+        '$route': function (to, from) {
+            this.cartIcon = to.path === '/tienda';
+        }
+    },
+
     methods: {
         mostrarCarritoModal() {
-            this.mostrarModal = true;
+            const cart = useCartStore();
+            cart.setCartModal(true);
         },
-        cerrarModal() {
-            this.mostrarModal = false;
-        }
+
+    },
+    created() {
+        this.cartIcon = this.$route.path === '/tienda';
     }
 }
 </script>
