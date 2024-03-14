@@ -24,17 +24,17 @@
             </NuxtLink>
         </div>
         <!-- Otros elementos del header -->
-        <CartModal v-if="mostrarModal" :carrito="carrito" :cerrarModal="cerrarModal" />
+        <CartModal :carrito="carrito" :cerrarModal="cerrarModal" />
     </div>
 </template>
 
 <script>
 import CartModal from '@/components/CartModal.vue';
+import { useCartStore } from '@/stores/counter';
 
 export default {
     data() {
         return {
-            mostrarModal: false,
             cartIcon: false
         }
     },
@@ -46,11 +46,10 @@ export default {
 
     methods: {
         mostrarCarritoModal() {
-            this.mostrarModal = true;
+            const cart = useCartStore();
+            cart.setCartModal(true);
         },
-        cerrarModal() {
-            this.mostrarModal = false;
-        },
+
     },
     created() {
         this.cartIcon = this.$route.path === '/tienda';

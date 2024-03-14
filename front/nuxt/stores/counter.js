@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useCartStore = defineStore("cart", {
     state: () => ({
         cart: [],
+        mostrarCartModal: false,
     }),
     actions: {
         addToCart(item) {
@@ -24,7 +25,11 @@ export const useCartStore = defineStore("cart", {
         clearCart() {
             this.cart = [];
         },
-
-        
+        getCartModal() {
+            return this.mostrarCartModal;
+        },
+        setCartModal(value) {
+            this.mostrarCartModal = value;
+        },
     },
 });
