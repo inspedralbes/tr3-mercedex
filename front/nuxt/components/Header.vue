@@ -19,7 +19,7 @@
             <NuxtLink to="/login">
                 <UserIcon />
             </NuxtLink>
-            <NuxtLink v-if="cartIcon" @click="mostrarCarritoModal">
+            <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
                 <CartIcon />
             </NuxtLink>
         </div>
@@ -43,6 +43,7 @@ export default {
             this.cartIcon = to.path === '/tienda';
         }
     },
+
     methods: {
         mostrarCarritoModal() {
             this.mostrarModal = true;
