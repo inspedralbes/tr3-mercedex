@@ -5,6 +5,7 @@ export const useCartStore = defineStore("cart", {
         cart: [],
         cartCount: 0,
         mostrarCartModal: false,
+        flag: "/img/flags/spain.jpg",
     }),
     actions: {
         addToCart(item) {
@@ -28,11 +29,22 @@ export const useCartStore = defineStore("cart", {
         clearCart() {
             this.cart = [];
         },
+
+        /* --------------------------------- GETTERS -------------------------------- */
         getCartModal() {
             return this.mostrarCartModal;
         },
+
+        getFlag() {
+            return this.flag;
+        },
+
+        /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
             this.mostrarCartModal = value;
+        },
+        setFlag(value) {
+            this.flag = value;
         },
     },
 });

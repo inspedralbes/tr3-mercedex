@@ -1,30 +1,43 @@
 <template>
   <div id="language-container" class="relative my-auto">
     <button class="flex items-center justify-center rounded-full focus:ring-2 focus:outline-none focus:ring-gray-400"
-      @click="dropDown()"><img class="size-5 rounded-full object-cover" src="../public/img/flags/spain.jpg"
+      @click="dropDown()"><img class="size-5 rounded-full object-cover" :src="flagUrl"
         alt=""></button>
 
     <div id="dropdownLanguage"
     :class="{ 'absolute mt-2 w-max  rounded-lg shadow-lg bg-slate-400/50 overflow-hidden modal': true, 'isOpen': isOpen}">
-      <LenguageBtn flag="/img/flags/usa.png" language="English" />
-      <LenguageBtn flag="/img/flags/italy.png" language="Italiano" />
-      <LenguageBtn flag="/img/flags/france.png" language="Français" />
-      <LenguageBtn flag="/img/flags/spain.jpg" language="Español" />
+      <LenguageBtn @click="changeLanguage('usa', 'png')" flag="/img/flags/usa.png" language="English" />
+      <LenguageBtn @click="changeLanguage('italy', 'png')" flag="/img/flags/italy.png" language="Italiano" />
+      <LenguageBtn @click="changeLanguage('france', 'png')" flag="/img/flags/france.png" language="Français" />
+      <LenguageBtn @click="changeLanguage('spain', 'jpg')" flag="/img/flags/spain.jpg" language="Español" />
     </div>
   </div>
 </template>
 
 <script>
+import { useCartStore } from '@/stores/counter';
+import {computed} from 'vue'
+
 export default {
   data() {
+    const cart = useCartStore();
+
     return {
-      isOpen: false
+      isOpen: false,
+      flagUrl: computed(() => cart.flag)
     }
   },
   methods: {
     dropDown() {
-      console.log('click')
       this.isOpen = !this.isOpen
+    },
+
+    changeLanguage(value, extension){
+      const cart = useCartStore();
+
+      const newFlagUrl = `/img/flags/${value}.${extension}`;
+      cart.setFlag(newFlagUrl);
+      console.log(cart.flag);
     }
   }
 }
