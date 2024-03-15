@@ -20,7 +20,7 @@
                 <UserIcon />
             </NuxtLink>
             <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
-                <CartIcon />
+                <CartCount />
             </NuxtLink>
         </div>
         <CartModal :carrito="carrito" :cerrarModal="cerrarModal" />
