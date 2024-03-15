@@ -4,6 +4,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TicketsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('products', [ProductController::class, 'index']);
 //Ruta para vender un producto
 Route::put('ventas', [ProductController::class, 'update']);
+// Ruta para devolver todos los tickets
+Route::get('tickets', [TicketsController::class, 'index']);
+// Ruta para crear un nuevo ticket
+Route::post('tickets', [TicketsController::class, 'store']);
