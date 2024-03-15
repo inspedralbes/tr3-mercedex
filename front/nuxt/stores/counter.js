@@ -4,7 +4,7 @@ export const useCartStore = defineStore("cart", {
     state: () => ({
         cart: [],
         mostrarCartModal: false,
-        flag: "",
+        flag: "/img/flags/spain.jpg",
     }),
     actions: {
         addToCart(item) {

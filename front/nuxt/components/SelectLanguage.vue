@@ -33,9 +33,9 @@ export default {
     },
 
     changeLanguage(value, extension){
-      const newFlagUrl = `/img/flags/${value}` + `.${extension}`;
-      this.flagUrl = newFlagUrl;
       const cart = useCartStore();
+
+      const newFlagUrl = `/img/flags/${value}.${extension}`;
       cart.setFlag(newFlagUrl);
       console.log(cart.flag);
     }
