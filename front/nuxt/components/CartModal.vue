@@ -29,7 +29,9 @@
       </div>
       <button v-if="cart.length === 0" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
         @click="cerrarModalYIrATienda">Ir a la tienda</button>
-      <button @click="comprar">Comprar</button>
+      <NuxtLink to="/compra">
+        <button>Comprar</button>
+      </NuxtLink>
     </div>
   </div>
   <ConfirmationModal class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalConfirmacion"
@@ -50,7 +52,7 @@ export default {
   data() {
     const cart = useCartStore();
     return {
-      mostrarCartModal: computed(() =>cart.mostrarCartModal),
+      mostrarCartModal: computed(() => cart.mostrarCartModal),
       mostrarModalConfirmacion: false,
       itemAEliminar: null
     }
@@ -77,19 +79,8 @@ export default {
       return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     },
     cerrarModal() {
-            const cart = useCartStore();
-            cart.setCartModal(false);
-    },
-    async comprar() {
-      try {
-        const items = this.cart.map(item => ({ id: item.id, quantity: item.quantity }));
-        const response = await axios.put('http://localhost:8000/api/ventas', { items });
-        console.log('Compra realizada?:', response.data);
-
-        // Lógica adicional después de la compra, si es necesario
-      } catch (error) {
-        console.log('Error:', error.response.data);
-      }
+      const cart = useCartStore();
+      cart.setCartModal(false);
     }
   }
 }

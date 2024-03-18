@@ -7,7 +7,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
                 Nombre
             </label>
-            <input v-model="form.name"
+            <input v-model="name"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name" type="text" placeholder="Nombre">
         </div>
@@ -15,7 +15,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">
                 Apellido
             </label>
-            <input v-model="form.lastname"
+            <input v-model="lastname"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="lastname" type="text" placeholder="Apellido">
         </div>
@@ -23,7 +23,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
                 Estado
             </label>
-            <input v-model="form.status"
+            <input v-model="status"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="status" type="text" placeholder="Estado">
         </div>
@@ -31,7 +31,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
                 Dirección
             </label>
-            <input v-model="form.address"
+            <input v-model="address"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="address" type="text" placeholder="Dirección">
         </div>
@@ -39,7 +39,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
                 Teléfono
             </label>
-            <input v-model="form.phone"
+            <input v-model="phone"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="phone" type="text" placeholder="Teléfono">
         </div>
@@ -47,7 +47,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                 Email
             </label>
-            <input v-model="form.email"
+            <input v-model="email"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email" type="email" placeholder="Email">
         </div>
@@ -58,7 +58,6 @@
                 Comprar
             </button>
         </div>
-
     </form>
 </template>
 
@@ -69,15 +68,12 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            productos: [],
-            form: {
-                name: '',
-                lastname: '',
-                status: '',
-                address: '',
-                phone: '',
-                email: ''
-            }
+            name: '',
+            lastname: '',
+            status: '',
+            address: '',
+            phone: '',
+            email: ''
         };
     },
     methods: {
@@ -88,14 +84,17 @@ export default {
             }));
 
             try {
-                await axios.post('http://localhost:8000/api/comprar', {
-                    ...this.form,
-                    items
-                });
                 console.log("Compra realizada con éxito");
 
-                const items = this.cart.map(item => ({ id: item.id, quantity: item.quantity }));
-                const response = await axios.put('http://localhost:8000/api/ventas', { items });
+                const response = await axios.post('http://localhost:8000/api/ventas', {
+                    name: this.name,
+                    lastname: this.lastname,
+                    status: this.status,
+                    address: this.address,
+                    phone: this.phone,
+                    email: this.email,
+                    items
+                });
                 console.log('Compra realizada?:', response.data);
 
                 // Lógica adicional después de la compra, si es necesario
@@ -103,6 +102,6 @@ export default {
                 console.error('Error:', error);
             }
         }
-    },
+    }
 }
 </script>

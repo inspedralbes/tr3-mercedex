@@ -26,40 +26,39 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->items as $item) {
-            $product = Product::find($item['id']);
-    
-            if (!$product) {
-                return response()->json([
-                    'message' => 'Producto no encontrado'
-                ], 400);
-            }
-
-            if ($item['quantity'] <= 0) {
-                return response()->json([
-                    'message' => 'La cantidad debe ser mayor que 0'
-                ], 400);
-            }
-    
-            if ($product->stock < $item['quantity']) {
-                return response()->json([
-                    'message' => 'No hay suficiente stock para ' . $product->name
-                ], 400);
-            }
-        }
-    
+        
         $total = 0;
         foreach ($request->items as $item) {
             $product = Product::find($item['id']);
+            
+            if (!$product) {
+                return response()->json(['message' => 'Producto no encontrado'], 404);
+            }
+            
+            if ($item['quantity'] <= 0) {
+                return response()->json(['message' => 'La cantidad debe ser mayor que 0'], 422);
+            }
+            
+            if ($product->stock < $item['quantity']) {
+                return response()->json(['message' => 'No hay suficiente stock para ' . $product->name], 409);
+            }
+            
             $product->stock -= $item['quantity'];
             $total += $product->price * $item['quantity'];
             $product->save();
-            
         }
-    
-        return response()->json([
-            'message' => 'Productos vendidos con éxito'
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'lastname' => 'required|string',
+            'status' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'items' => 'required|array',
+            'items.*.id' => 'required|exists:products,id',
+            'items.*.quantity' => 'required|integer|min:1',
         ]);
+
         // Crear un nuevo ticket en la base de datos
         $ticket = new Ticket();
         $ticket->name = $request->name;
@@ -72,9 +71,8 @@ class TicketsController extends Controller
         $ticket->save();
 
         return response()->json([
-            'message' => 'Ticket creado con éxito'
+            'message' => 'Ticket creado con éxito y productos vendidos con éxito'
         ]);
-        
     }
 
     /**
@@ -90,9 +88,6 @@ class TicketsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
-
-
     }
 
     /**
