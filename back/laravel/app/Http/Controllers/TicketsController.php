@@ -20,7 +20,6 @@ class TicketsController extends Controller
             'tickets' => $tickets
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */
