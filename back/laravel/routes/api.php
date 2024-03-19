@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,17 @@ use App\Http\Controllers\TicketsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
 });
+
 //Ruta devolver todos los productos
 Route::get('products', [ProductController::class, 'index']);
+
 //Ruta para vender un producto
 Route::post('ventas', [TicketsController::class, 'store']);
+
+//Rutas para el login y registro de usuarios
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
 
