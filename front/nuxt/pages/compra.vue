@@ -97,7 +97,6 @@ export default {
                 });
                 console.log('Compra realizada?:', response.data);
 
-                // Lógica adicional después de la compra, si es necesario
             } catch (error) {
                 console.error('Error:', error);
             }
