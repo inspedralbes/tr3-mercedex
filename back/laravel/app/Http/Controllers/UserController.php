@@ -51,15 +51,12 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'surnames' => 'required|string',
-            'nickname' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
-            'birthdate' => 'required|date',
-            'password' => 'required|string',
+            'password' => 'required|string|confirmed',
         ], [
             'required' => 'El :attribute es obligatorio.',
             'email' => 'El :attribute debe ser una dirección de correo válida.',
             'unique' => 'El :attribute ya está en uso.',
-            'date' => 'El :attribute debe ser una fecha válida.',
         ]);
 
         if ($validator->fails()) {
@@ -70,9 +67,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'surnames' => $request->surnames,
-            'nickname' => $request->nickname,
             'email' => $request->email,
-            'birthdate' => $request->birthdate,
             'password' => bcrypt($request->password),
             'loginWith' => 'email',
         ]);
