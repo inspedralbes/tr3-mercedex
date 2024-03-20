@@ -52,7 +52,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'surnames' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string',
+            'password' => 'required|string|confirmed',
         ], [
             'required' => 'El :attribute es obligatorio.',
             'email' => 'El :attribute debe ser una dirección de correo válida.',
