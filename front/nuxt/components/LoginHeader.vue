@@ -3,6 +3,5 @@
         <button><ArrowLeftIcon/></button>
         <MercedesLogo class="size-16"/>
         <SelectLanguage/>
-    
     </div>
 </template>
