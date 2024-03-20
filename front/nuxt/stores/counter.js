@@ -6,6 +6,12 @@ export const useCartStore = defineStore("cart", {
         cartCount: 0,
         mostrarCartModal: false,
         flag: "/img/flags/spain.jpg",
+        userInfo: {
+            name: "",
+            surnames:"",
+            email: "",
+            token: "",
+        },
     }),
     actions: {
         addToCart(item) {
@@ -45,6 +51,9 @@ export const useCartStore = defineStore("cart", {
         },
         setFlag(value) {
             this.flag = value;
+        },
+        setUserInfo(userInfo) {
+            this.userInfo = userInfo;
         },
     },
 });
