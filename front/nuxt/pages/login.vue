@@ -26,7 +26,9 @@
 
                     <div class="flex gap-x-4 mt-10">
                         <p class="font-semibold">¿Aun no tienes Mercedes me ID?</p>
-                        <NuxtLink to="/register" class="text-blue-400">Registrarse</NuxtLink>
+                        <NuxtLink to="/register" class="text-blue-400 relative" id="link">Registrarse
+                            <span class="bg-blue-400" id="underlineHover"></span>
+                        </NuxtLink>
                     </div>
 
                     <span class="w-full h-2 absolute bottom-0 left-0 bg-white"></span>
@@ -58,3 +60,17 @@ export default {
     }
 }
 </script>
+
+<style>
+    #underlineHover{
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        transition: width 0.3s ease-in-out; 
+    }
+    #link:hover #underlineHover{
+        width: 100%;
+    }
+</style>

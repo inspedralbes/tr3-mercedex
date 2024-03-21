@@ -36,8 +36,10 @@
                     </div>
 
                     <div class="flex gap-x-4 mt-10">
-                        <p class="font-semibold">¿Aun no tienes Mercedes me ID?</p>
-                        <NuxtLink to="/register" class="text-blue-400">Registrarse</NuxtLink>
+                        <p class="font-semibold">¿Ya tienes Mercedes me ID?</p>
+                        <NuxtLink to="/login" class="text-blue-400 font-semibold relative" id="link">Login
+                            <span class="bg-blue-400" id="underlineHover"></span>
+                        </NuxtLink>
                     </div>
 
                     <span class="w-full h-2 absolute bottom-0 left-0 bg-white"></span>
