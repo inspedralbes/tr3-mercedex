@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import { useUserStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
+
 import axios from 'axios';
 
 export default {
@@ -56,7 +57,7 @@ export default {
       console.log(this.password);
     },
     async login() {
-      const userStore = useUserStore();
+      const store = useStores(); 
 
       try {
         console.log("Entra en login?");
@@ -66,14 +67,15 @@ export default {
           password: this.password
         });
         console.log('Info User: ', response.data);
+        console.log("Token: ", response.data.data.user.name);
         
-        userStore.setUserInfo({
-          name: response.data.name,
-          surnames: response.data.surnames,
-          email: response.data.email,
-          token: response.data.token,
+        store.setUserInfo({
+          name: response.data.data.user.name,
+          surnames: response.data.data.user.surnames,
+          email: response.data.data.user.email,
+          token: response.data.data.token,
         });
-
+        this.$router.push('/tienda');
       } catch (error) {
         console.error('Error:', error);
       }

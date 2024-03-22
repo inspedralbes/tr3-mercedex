@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import { useCartStore } from '@/stores/counter';
+import { useStores } from '@/stores/counter';
 import {computed} from 'vue';
 
     export default {
         data() {
-            const cart = useCartStore();
+            const cart = useStores();
 
             return {
                 count: computed(() => cart.cartCount)

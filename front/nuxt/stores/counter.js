@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useCartStore = defineStore("cart", {
+export const useStores = defineStore("counter",{
     state: () => ({
         cart: [],
         cartCount: 0,
@@ -8,7 +8,7 @@ export const useCartStore = defineStore("cart", {
         flag: "/img/flags/spain.jpg",
         userInfo: {
             name: "",
-            surnames:"",
+            surnames: "",
             email: "",
             token: "",
         },
@@ -16,13 +16,13 @@ export const useCartStore = defineStore("cart", {
     actions: {
         addToCart(item) {
             const existingItem = this.cart.find((i) => i.id === item.id);
-            
+
             if (existingItem) {
                 existingItem.quantity++;
             } else {
                 this.cart.push({ ...item, quantity: 1 });
             }
-            
+
             this.cartCount++;
         },
         removeFromCart(itemId) {
@@ -44,6 +44,9 @@ export const useCartStore = defineStore("cart", {
         getFlag() {
             return this.flag;
         },
+        getUserInfo() {
+            return this.userInfo;
+        },
 
         /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
@@ -53,7 +56,10 @@ export const useCartStore = defineStore("cart", {
             this.flag = value;
         },
         setUserInfo(userInfo) {
-            this.userInfo = userInfo;
+            this.userInfo.name = userInfo.name;
+            this.userInfo.surnames = userInfo.surnames;
+            this.userInfo.email = userInfo.email;
+            this.userInfo.token = userInfo.token;
         },
     },
 });

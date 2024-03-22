@@ -40,7 +40,7 @@
 
 <script>
 
-import { useCartStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
 import ConfirmationModal from './ConfirmationModal.vue';
 import { computed } from 'vue';
 import axios from 'axios';
@@ -50,7 +50,7 @@ export default {
     ConfirmationModal
   },
   data() {
-    const cart = useCartStore();
+    const cart = useStores();
     return {
       mostrarCartModal: computed(() => cart.mostrarCartModal),
       mostrarModalConfirmacion: false,
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     cart() {
-      return useCartStore().cart;
+      return useStores().cart;
     }
   },
   methods: {
@@ -72,14 +72,14 @@ export default {
       this.mostrarModalConfirmacion = true;
     },
     eliminarDelCarrito() {
-      useCartStore().removeFromCart(this.itemAEliminar);
+      useStores().removeFromCart(this.itemAEliminar);
       this.mostrarModalConfirmacion = false;
     },
     calcularTotal() {
       return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     },
     cerrarModal() {
-      const cart = useCartStore();
+      const cart = useStores();
       cart.setCartModal(false);
     }
   }
