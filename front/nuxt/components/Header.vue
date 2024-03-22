@@ -29,7 +29,7 @@
 
 <script>
 import CartModal from '@/components/CartModal.vue';
-import { useCartStore } from '@/stores/counter';
+import { useStores } from '@/stores/counter';
 
 export default {
     data() {
@@ -45,7 +45,7 @@ export default {
 
     methods: {
         mostrarCarritoModal() {
-            const cart = useCartStore();
+            const cart = useStores();
             cart.setCartModal(true);
         },
 

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { useCartStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
 import axios from 'axios';
 
 export default {
@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         async comprar() {
-            const items = useCartStore().cart.map(item => ({
+            const items = useStores().cart.map(item => ({
                 id: item.id,
                 quantity: item.quantity
             }));

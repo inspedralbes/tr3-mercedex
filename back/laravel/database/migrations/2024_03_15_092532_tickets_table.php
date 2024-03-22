@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->decimal('total', 8, 2);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

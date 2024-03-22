@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import { useCartStore } from '@/stores/counter';
+import { useStores } from '@/stores/counter';
 import {computed} from 'vue'
 
 export default {
   data() {
-    const cart = useCartStore();
+    const cart = useStores();
 
     return {
       isOpen: false,
@@ -33,7 +33,7 @@ export default {
     },
 
     changeLanguage(value, extension){
-      const cart = useCartStore();
+      const cart = useStores();
 
       const newFlagUrl = `/img/flags/${value}.${extension}`;
       cart.setFlag(newFlagUrl);
