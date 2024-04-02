@@ -72,6 +72,7 @@ export default {
         console.log("Token: ", response.data.data.user.name);
         
         store.setUserInfo({
+          id: response.data.data.user.id,
           name: response.data.data.user.name,
           surnames: response.data.data.user.surnames,
           email: response.data.data.user.email,

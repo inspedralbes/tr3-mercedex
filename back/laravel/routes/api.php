@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('ventas', [TicketsController::class, 'store']);
 
 });
 
@@ -26,7 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::get('products', [ProductController::class, 'index']);
 
 //Ruta para vender un producto
-Route::post('ventas', [TicketsController::class, 'store']);
 
 //Rutas para el login y registro de usuarios
 Route::post('login', [UserController::class, 'login']);

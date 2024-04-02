@@ -7,6 +7,7 @@ export const useStores = defineStore("counter",{
         mostrarCartModal: false,
         flag: "/img/flags/spain.jpg",
         userInfo: {
+            id: null,
             name: "",
             surnames: "",
             email: "",
@@ -56,6 +57,7 @@ export const useStores = defineStore("counter",{
             this.flag = value;
         },
         setUserInfo(userInfo) {
+            this.userInfo.id = userInfo.id;
             this.userInfo.name = userInfo.name;
             this.userInfo.surnames = userInfo.surnames;
             this.userInfo.email = userInfo.email;
