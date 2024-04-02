@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} - ${{ github.repository }}
 on:
   push:
     branches:
-      - main
+      - actions
 
 jobs:
   build:
@@ -16,6 +16,7 @@ jobs:
 
       - name: Comprobar nuxt
         run: |
+          cd front/nuxt
           npm install
           npm run test
 
