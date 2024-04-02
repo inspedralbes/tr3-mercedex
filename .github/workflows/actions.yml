@@ -20,18 +20,18 @@ jobs:
           npm install
           npm run test
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-nuxt-app .
-          docker tag my-nuxt-app:latest my-nuxt-app:$(date +%s)
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push my-nuxt-app
+  #     - name: Build Docker image
+  #       run: |
+  #         docker build -t my-nuxt-app .
+  #         docker tag my-nuxt-app:latest my-nuxt-app:$(date +%s)
+  #         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+  #         docker push my-nuxt-app
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Docker Swarm
-        run: |
-          # Aquí pondrías los comandos necesarios para desplegar tu contenedor en Docker Swarm, Kubernetes u otro entorno de tu elección
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to Docker Swarm
+  #       run: |
+  #         # Aquí pondrías los comandos necesarios para desplegar tu contenedor en Docker Swarm, Kubernetes u otro entorno de tu elección
 
