@@ -20,14 +20,6 @@
                 id="lastname" type="text" placeholder="Apellido">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
-                Estado
-            </label>
-            <input v-model="status"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="status" type="text" placeholder="Estado">
-        </div>
-        <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
                 Dirección
             </label>
@@ -62,7 +54,7 @@
 </template>
 
 <script>
-import { useCartStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
 import axios from 'axios';
 
 export default {
@@ -70,7 +62,6 @@ export default {
         return {
             name: '',
             lastname: '',
-            status: '',
             address: '',
             phone: '',
             email: ''
@@ -78,7 +69,7 @@ export default {
     },
     methods: {
         async comprar() {
-            const items = useCartStore().cart.map(item => ({
+            const items = useStores().cart.map(item => ({
                 id: item.id,
                 quantity: item.quantity
             }));
@@ -89,7 +80,6 @@ export default {
                 const response = await axios.post('http://localhost:8000/api/ventas', {
                     name: this.name,
                     lastname: this.lastname,
-                    status: this.status,
                     address: this.address,
                     phone: this.phone,
                     email: this.email,

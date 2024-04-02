@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { useCartStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
 import axios from 'axios';
 
 export default {
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     async añadirCarrito(producto) {
-      useCartStore().addToCart(producto);
+      useStores().addToCart(producto);
       console.log("Producto añadido al carrito:", producto);
     }
   },
