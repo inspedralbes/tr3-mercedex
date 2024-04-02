@@ -9,10 +9,15 @@
       <div v-if="cart.length > 0" class="overflow-y-auto">
         <ul>
           <li v-for="(item, index) in cart" :key="index">
-            <div class="flex justify-between">
-              <div>
+            <div class="flex justify-between bg-blue-300">
+              <img :src="item.image" class="size-32 object-contain bg-slate-400" alt="Imagen del producto">
+              <div class="flex flex-col w-full">
                 <h3 class="text-sm font-semibold">{{ item.name }}</h3>
-                <p class="text-xs">{{ item.quantity }}</p>
+                <div class="w-full flex justify-center items-center">
+                  <button class="px-3 bg-slate-200 hover:bg-slate-300" @click="changeQuantity(item, '-')">-</button>
+                  <p class="w-full text-center bg-white">{{ item.quantity }}</p>
+                  <button class="px-3 bg-slate-200 hover:bg-slate-300" @click="changeQuantity(item, '+')">+</button>
+                </div>
               </div>
               <div>
                 <p class="text-sm">{{ item.price }}€</p>
@@ -81,6 +86,17 @@ export default {
     cerrarModal() {
       const cart = useStores();
       cart.setCartModal(false);
+    },
+    changeQuantity(item, ope) {
+      const cart = useStores();
+
+      if (ope === '+') {
+        cart.addToCart(item);
+        console.log('Sumar');
+      } else {
+        cart.decreaseQuantity(item.id);
+        console.log('Restar');
+      }
     }
   }
 }

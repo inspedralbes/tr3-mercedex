@@ -32,6 +32,19 @@ export const useStores = defineStore("counter",{
                 this.cart.splice(index, 1);
             }
         },
+        decreaseQuantity(itemId) {
+            const item = this.cart.find((item) => item.id === itemId);
+
+            if (item) {
+                item.quantity--;
+
+                if (item.quantity === 0) {
+                    this.removeFromCart(itemId);
+                }
+
+                this.cartCount--;
+            }
+        },
         clearCart() {
             this.cart = [];
         },
