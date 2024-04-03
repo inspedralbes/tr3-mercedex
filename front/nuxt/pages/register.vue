@@ -29,8 +29,7 @@
                                 type="password" placeholder="Repetir Contraseña" v-model="password_confirmation">
                             <button
                                 class="py-1 px-4 relative bg-transparent mt-2 overflow-hidden transition 
-                            duration-500 ease-in-out font-semibold hover:text-black hover:bg-white border-white border-2"
-                                >Enviar
+                            duration-500 ease-in-out font-semibold hover:text-black hover:bg-white border-white border-2">Enviar
                             </button>
                         </form>
                     </div>
@@ -56,6 +55,7 @@
 
 <script>
 import axios from 'axios';
+import { useStores } from '~/stores/counter';
 
 export default {
     data() {
@@ -75,15 +75,28 @@ export default {
         },
 
         async register() {
-            const response = await axios.post('http://localhost:8000/api/register', {
-                email: this.email,
-                name: this.name,
-                surnames: this.surnames,
-                password: this.password,
-                password_confirmation: this.password_confirmation
+            const store = useStores();
+            try {
+                const response = await axios.post('http://localhost:8000/api/register', {
+                    email: this.email,
+                    name: this.name,
+                    surnames: this.surnames,
+                    password: this.password,
+                    password_confirmation: this.password_confirmation
+                });
+                store.setUserInfo({
+                    id: response.data.data.user.id,
+                    name: response.data.data.user.name,
+                    surnames: response.data.data.user.surnames,
+                    email: response.data.data.user.email,
+                    token: response.data.data.token,
+                });
+                this.$router.push('/tienda');
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
 
-            });
-            console.log(response.data);
         }
     }
 }

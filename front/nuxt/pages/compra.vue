@@ -4,22 +4,6 @@
     </div>
     <form @submit.prevent="comprar" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                Nombre
-            </label>
-            <input v-model="name"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name" type="text" placeholder="Nombre">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">
-                Apellido
-            </label>
-            <input v-model="lastname"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="lastname" type="text" placeholder="Apellido">
-        </div>
-        <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
                 Dirección
             </label>
@@ -34,14 +18,6 @@
             <input v-model="phone"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="phone" type="text" placeholder="Teléfono">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                Email
-            </label>
-            <input v-model="email"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email" type="email" placeholder="Email">
         </div>
         <div class="flex items-center justify-between">
             <button
@@ -60,11 +36,8 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            name: '',
-            lastname: '',
             address: '',
-            phone: '',
-            email: ''
+            phone: ''
         };
     },
     methods: {
@@ -73,18 +46,21 @@ export default {
                 id: item.id,
                 quantity: item.quantity
             }));
-
+            const token = useStores().userInfo.token;
+            console.log(`Bearer ${token}`);
             try {
                 console.log("Compra realizada con éxito");
 
                 const response = await axios.post('http://localhost:8000/api/ventas', {
-                    name: this.name,
-                    lastname: this.lastname,
                     address: this.address,
                     phone: this.phone,
-                    email: this.email,
                     items
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 });
+
                 console.log('Compra realizada?:', response.data);
 
             } catch (error) {

@@ -47,6 +47,7 @@ class UserController extends Controller
     }
 
     public function register(Request $request)
+
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -74,7 +75,7 @@ class UserController extends Controller
 
         $user->makeHidden(['created_at', 'updated_at']);
 
-        $token = $user->createToken('Spottunes')->plainTextToken;
+        $token = $user->createToken('Mercedex')->plainTextToken;
         $response = [
             'user' => $user,
             'token' => $token
