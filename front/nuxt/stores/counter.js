@@ -6,6 +6,7 @@ export const useStores = defineStore("counter",{
         cartCount: 0,
         mostrarCartModal: false,
         flag: "/img/flags/spain.jpg",
+        loggedIn: false,
         userInfo: {
             id: null,
             name: "",
@@ -48,6 +49,9 @@ export const useStores = defineStore("counter",{
         getUserInfo() {
             return this.userInfo;
         },
+        getLoggedIn() {
+            return this.loggedIn;
+        },
 
         /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
@@ -62,6 +66,9 @@ export const useStores = defineStore("counter",{
             this.userInfo.surnames = userInfo.surnames;
             this.userInfo.email = userInfo.email;
             this.userInfo.token = userInfo.token;
+        },
+        setLoggedIn(value) {
+            this.loggedIn = value;
         },
     },
 });

@@ -20,13 +20,14 @@ use App\Http\Controllers\UserController;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('ventas', [TicketsController::class, 'store']);
+    Route::get('tickets', [TicketsController::class, 'index']);
+    Route::post('logout', [UserController::class, 'logout']);
+    Route::post('cancelar/{id}', [TicketsController::class, 'cancel']);
 
 });
 
 //Ruta devolver todos los productos
 Route::get('products', [ProductController::class, 'index']);
-
-//Ruta para vender un producto
 
 //Rutas para el login y registro de usuarios
 Route::post('login', [UserController::class, 'login']);
