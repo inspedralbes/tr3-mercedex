@@ -41,7 +41,7 @@
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">${{ calcularTotal() }}</p>
         </div>
-      <NuxtLink to="/compra" class="bg-primary py-1 px-4 rounded-md text-cWhite hover:bg-primary_dark">Comprar</NuxtLink>
+      <NuxtLink to="/compra" class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">Comprar</NuxtLink>
       </div>
 
     </div>

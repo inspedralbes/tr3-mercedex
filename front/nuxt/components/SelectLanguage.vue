@@ -5,7 +5,7 @@
         alt=""></button>
 
     <div id="dropdownLanguage"
-    :class="{ 'absolute mt-2 w-max  rounded-lg shadow-lg bg-slate-400/50 overflow-hidden modal': true, 'isOpen': isOpen}">
+    :class="{ 'absolute right-0 mt-2 w-max  rounded-lg shadow-lg bg-slate-400/50 overflow-hidden modal': true, 'isOpen': isOpen}">
       <LenguageBtn @click="changeLanguage('usa', 'png')" flag="/img/flags/usa.png" language="English" />
       <LenguageBtn @click="changeLanguage('italy', 'png')" flag="/img/flags/italy.png" language="Italiano" />
       <LenguageBtn @click="changeLanguage('france', 'png')" flag="/img/flags/france.png" language="Français" />
