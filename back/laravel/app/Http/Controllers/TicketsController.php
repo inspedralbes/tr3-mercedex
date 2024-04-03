@@ -13,12 +13,10 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        // mostrar todos los tickets de la base de datos
+        // mostrar todos los tickets del usuario autenticado
+        $tickets = Ticket::where('user_id', auth()->user()->id)->get();
+        return response()->json($tickets);
 
-        $tickets = Ticket::all();
-        return response()->json([
-            'tickets' => $tickets
-        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -76,6 +74,29 @@ class TicketsController extends Controller
         return response()->json([
             'message' => 'Ticket creado con éxito y productos vendidos con éxito'
         ]);
+    }
+
+    //cancelar ticket
+    public function cancel(Request $request, string $id)
+    {
+        $ticket = Ticket::find($id);
+
+        if (!$ticket) {
+            return response()->json(['message' => 'Ticket no encontrado'], 404);
+        }
+
+        if ($ticket->status === 'cancelado') {
+            return response()->json(['message' => 'El ticket ya ha sido cancelado'], 409);
+        }
+
+        if ($ticket->status === 'enviado') {
+            return response()->json(['message' => 'El ticket ya ha sido enviado'], 409);
+        }
+
+        $ticket->status = 'cancelado';
+        $ticket->save();
+
+        return response()->json(['message' => 'Ticket cancelado con éxito']);
     }
 
     /**

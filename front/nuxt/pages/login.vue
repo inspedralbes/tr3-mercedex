@@ -60,7 +60,7 @@ export default {
     },
     async login() {
       const store = useStores(); 
-
+      
       try {
         console.log("Entra en login?");
 
@@ -78,6 +78,7 @@ export default {
           email: response.data.data.user.email,
           token: response.data.data.token,
         });
+        store.setLoggedIn(true);
         this.$router.push('/tienda');
       } catch (error) {
         console.error('Error:', error);

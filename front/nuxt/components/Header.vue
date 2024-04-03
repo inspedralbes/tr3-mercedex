@@ -16,7 +16,7 @@
                 <HelpIcon />
             </NuxtLink>
             <SelectLanguage />
-            <NuxtLink to="/login">
+            <NuxtLink :to="getLoggedIn() ? '/tickets' : '/login'">
                 <UserIcon />
             </NuxtLink>
             <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
@@ -27,31 +27,35 @@
     </div>
 </template>
 
-<script>
-import CartModal from '@/components/CartModal.vue';
-import { useStores } from '@/stores/counter';
-
-export default {
-    data() {
-        return {
-            cartIcon: false
-        }
-    },
-    watch: {
-        '$route': function (to, from) {
-            this.cartIcon = to.path === '/tienda';
-        }
-    },
-
-    methods: {
-        mostrarCarritoModal() {
-            const cart = useStores();
-            cart.setCartModal(true);
+    <script>
+    import CartModal from '@/components/CartModal.vue';
+    import { useStores } from '@/stores/counter';
+    
+    export default {
+        data() {
+            return {
+                cartIcon: false
+            }
         },
-
-    },
-    created() {
-        this.cartIcon = this.$route.path === '/tienda';
+        watch: {
+            '$route': function (to, from) {
+                this.cartIcon = to.path === '/tienda';
+            }
+        },
+    
+        methods: {
+            mostrarCarritoModal() {
+                const cart = useStores();
+                cart.setCartModal(true);
+            },
+            getLoggedIn() {
+                const store = useStores();
+                return store.getLoggedIn();
+            }
+    
+        },
+        created() {
+            this.cartIcon = this.$route.path === '/tienda';
+        }
     }
-}
-</script>
+    </script>
