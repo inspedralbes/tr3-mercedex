@@ -7,31 +7,43 @@
         @click="cerrarModal">Cerrar</button>
       <h2 class="text-lg font-semibold mb-4">Tu carrito</h2>
       <div v-if="cart.length > 0" class="overflow-y-auto">
-        <ul>
+        <ul class="flex flex-col gap-4 border-b pb-8 mb-8">
           <li v-for="(item, index) in cart" :key="index">
             <div class="flex justify-between">
-              <div>
+              <img :src="item.image" class="size-32 object-contain bg-slate-200" alt="Imagen del producto">
+
+              <div class="flex flex-col w-full gap-y-6 justify-between px-2">
                 <h3 class="text-sm font-semibold">{{ item.name }}</h3>
-                <p class="text-xs">{{ item.quantity }}</p>
-              </div>
-              <div>
-                <p class="text-sm">{{ item.price }}€</p>
-                <button class="text-xs text-red-500" @click="mostrarConfirmacion(item.id)">Quitar</button>
+                <div class="w-full flex justify-center items-center">
+                  <button class="px-3 bg-blue-200 border border-blue-200 hover:bg-blue-300"
+                    @click="changeQuantity(item, '-')">-</button>
+                  <p class="w-full text-center  border border-black">{{ item.quantity }}</p>
+                  <button class="px-3 bg-blue-200 hover:bg-blue-300" @click="changeQuantity(item, '+')">+</button>
+                </div>
+                <div class="flex justify-between items-center">
+                  <button class="text-xs text-red-500 font-semibold"
+                    @click="mostrarConfirmacion(item.id)">Quitar</button>
+                  <p class="text-sm font-semibold">{{ item.price }}€</p>
+                </div>
               </div>
 
             </div>
           </li>
         </ul>
-        <p class="mt-4">Total: {{ calcularTotal() }}€</p>
       </div>
-      <div v-else class="flex items-center justify-center">
+
+      <div v-else class="flex items-center justify-center my-6">
         <p>Tu carrito está vacío.</p>
       </div>
-      <button v-if="cart.length === 0" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-        @click="cerrarModalYIrATienda">Ir a la tienda</button>
-      <NuxtLink to="/compra">
-        <button>Comprar</button>
-      </NuxtLink>
+
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col">
+          <p class="text-sm">Total</p>
+          <p class="text-lg font-semibold">${{ calcularTotal() }}</p>
+        </div>
+      <NuxtLink to="/compra" class="bg-primary py-1 px-4 rounded-md text-cWhite hover:bg-primary_dark">Comprar</NuxtLink>
+      </div>
+
     </div>
   </div>
   <ConfirmationModal class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalConfirmacion"
@@ -81,6 +93,17 @@ export default {
     cerrarModal() {
       const cart = useStores();
       cart.setCartModal(false);
+    },
+    changeQuantity(item, ope) {
+      const cart = useStores();
+
+      if (ope === '+') {
+        cart.addToCart(item);
+        console.log('Sumar');
+      } else {
+        cart.decreaseQuantity(item.id);
+        console.log('Restar');
+      }
     }
   }
 }
