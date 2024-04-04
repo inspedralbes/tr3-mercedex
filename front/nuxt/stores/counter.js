@@ -15,6 +15,10 @@ export const useStores = defineStore("counter",{
             token: "",
         },
     }),
+    persist: {
+        storage: persistedState.localStorage,
+        paths:['userInfo', 'loggedIn']
+    },
     actions: {
         addToCart(item) {
             const existingItem = this.cart.find((i) => i.id === item.id);
