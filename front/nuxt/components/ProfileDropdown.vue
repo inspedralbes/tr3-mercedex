@@ -17,7 +17,8 @@
                 class="flex items-center justify-start gap-2 w-full px-3 py-2 text-sm hover:bg-blue-500">
                 <UserconfIcon class="size-4" /> Perfil
             </NuxtLink>
-            <Button @click="Logout()" class="flex items-center justify-start gap-2 w-full px-3 py-2 text-sm hover:bg-blue-500">
+            <Button @click="Logout()"
+                class="flex items-center justify-start gap-2 w-full px-3 py-2 text-sm hover:bg-blue-500">
                 <LogoutIcon class="size-4" /> Logout
             </Button>
         </div>
