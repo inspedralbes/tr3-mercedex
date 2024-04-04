@@ -37,7 +37,8 @@ export default {
     data() {
         return {
             address: '',
-            phone: ''
+            phone: '',
+            TicketId: ''
         };
     },
     methods: {
@@ -61,11 +62,34 @@ export default {
                     }
                 });
 
-                console.log('Compra realizada?:', response.data);
+                console.log('Compra realizada?:', response.data.id);
+                this.TicketId = response.data.id;
+
 
             } catch (error) {
                 console.error('Error:', error);
             }
+
+            const items_2 = useStores().cart.map(item => ({
+                productId: item.id,
+                quantity: item.quantity
+            }));
+
+            const ticketId = this.TicketId;
+
+            try {
+                const response = await axios.post(`http://localhost:8000/api/tickets_product/${ticketId}`, {
+                    products: items_2, // Cambio de 'items_2' a 'products' para que coincida con la validación en el controlador
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                console.log('Compra realizada?:', response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
         }
     }
 }
