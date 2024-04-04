@@ -5,19 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Product;
+use App\Models\Ticket_Product;
+
 
 class TicketsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         // mostrar todos los tickets del usuario autenticado
         $tickets = Ticket::where('user_id', auth()->user()->id)->get();
-        return response()->json($tickets);
-
+        $ticketsAllInfo = [];
+        foreach ($tickets as $ticket) {
+            $tickets_products = Ticket_Product::where('ticket_id', $ticket->id)->get();
+            $products = [];
+            foreach ($tickets_products as $ticket_product) {
+                $product = Product::find($ticket_product->product_id);
+                
+                $product_info = (object) [
+                    'quantity' => $ticket_product->quantity,
+                    'image' => $product->image,
+                    'name' => $product->name,
+                    'price' => $product->price * $ticket_product->quantity,
+                ];
+                
+                $products[] = $product_info;
+            }
+            $ticket->products = $products;
+            $ticketsAllInfo[] = $ticket;
+        }
+        return response()->json($ticketsAllInfo);
+        
     }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -70,10 +91,9 @@ class TicketsController extends Controller
         $ticket->email = auth()->user()->email;
         $ticket->save();
 
-
-        return response()->json([
-            'message' => 'Ticket creado con éxito y productos vendidos con éxito'
-        ]);
+        //devolver el id del ticket creado
+        return response()->json(['id' => $ticket->id]);
+        
     }
 
     //cancelar ticket
@@ -98,6 +118,8 @@ class TicketsController extends Controller
 
         return response()->json(['message' => 'Ticket cancelado con éxito']);
     }
+
+    
 
     /**
      * Display the specified resource.

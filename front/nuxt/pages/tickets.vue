@@ -8,6 +8,12 @@
             <p class="mb-2">Dirección:{{ ticket.address }}</p>
             <p class="mb-2">Teléfono:{{ ticket.phone }}</p>
             <p class="mb-2">Estado:{{ ticket.status }}</p>
+            <div v-for="(product, pIndex) in ticket.products" :key="`product-${pIndex}`">
+                <img :src="product.image" alt="">
+                <p>{{ product.name }}</p>
+                <p>{{ product.quantity }}</p>
+                <p>{{ product.price }}€</p>
+            </div>
             <p>Total:{{ ticket.total }}€</p>
             <button class="bg-black text-white py-1 px-2 rounded" @click="cancelar(ticket.id)">Cancelar</button>
         </div>
@@ -61,6 +67,7 @@ export default {
             });
             this.tickets = response.data;
             console.log("Esta es la respuesta", this.tickets);
+            
         } catch (error) {
             console.error('Error:', error);
         }
