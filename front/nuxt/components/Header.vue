@@ -11,13 +11,13 @@
             <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
 
-        <div class="flex gap-x-3 text-white [&>a:hover]:text-green-300 [&>a]:transition">
+        <div class="flex gap-x-3 text-white [&>a]:transition">
             <NuxtLink to="/questions">
                 <HelpIcon />
             </NuxtLink>
             <SelectLanguage />
-            <NuxtLink :to="getLoggedIn() ? '/tickets' : '/login'">
-                <UserIcon />
+            <NuxtLink :to="getLoggedIn() ? '' : '/login'">
+                <ProfileDropdown />
             </NuxtLink>
             <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
                 <CartCount />
