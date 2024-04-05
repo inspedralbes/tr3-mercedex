@@ -89,6 +89,7 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Token eliminado']);
     }
+    
     public function index()
     {
         //

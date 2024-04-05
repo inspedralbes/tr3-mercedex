@@ -14,10 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Comprobar nuxt
+      - name: Comprobar Laravel
         run: |
-          npm install
-          npm run test
+          cd back/laravel
+          composer install
+          cp .env.example .env
+          php artisan key:generate
+          php artisan migrate --seed
+          php artisan test
+
 
       - name: Build Docker image
         run: |
