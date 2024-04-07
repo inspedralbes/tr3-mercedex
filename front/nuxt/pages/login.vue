@@ -8,6 +8,9 @@
                     <span class="w-14 h-0.5 bg-white mt-2"></span>
 
                     <div class="mt-10 w-full">
+                        <div v-if="error" class="bg-red-500 text-white p-2 rounded">
+                            <p>{{ this.message }}</p>
+                        </div>
                         <form class="flex flex-col gap-y-4 items-start" @submit.prevent="login">
                             <input
                                 class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0"
@@ -38,11 +41,13 @@
             </div>
         </section>
     </div>
+    <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
+
 </template>
 
 <script>
 import { useStores } from '~/stores/counter';
-
+import Loader from '~/components/Loader.vue';
 import axios from 'axios';
 
 export default {
@@ -50,6 +55,9 @@ export default {
     return {
       email: '',
       password: '',
+      mostrarModalLoader: false,
+      error: false,
+      message: ''
     }
   },
 
@@ -60,7 +68,7 @@ export default {
     },
     async login() {
       const store = useStores(); 
-      
+      this.mostrarModalLoader = true;
       try {
         console.log("Entra en login?");
 
@@ -80,8 +88,14 @@ export default {
         });
         store.setLoggedIn(true);
         this.$router.push('/tienda');
+        this.mostrarModalLoader = false;
       } catch (error) {
+
         console.error('Error:', error);
+        this.error = true;
+        this.message = error.response.data.message;
+
+        this.mostrarModalLoader = false;
       }
     }
   }

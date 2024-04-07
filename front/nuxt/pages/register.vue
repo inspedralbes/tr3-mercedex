@@ -8,6 +8,9 @@
                     <span class="w-14 h-0.5 bg-white mt-2"></span>
 
                     <div class="mt-10 w-full">
+                        <div v-if="error" class="bg-red-500 text-white p-2 rounded">
+                            <p>{{ this.message }}</p>
+                        </div>
                         <form class="flex flex-col gap-y-4 items-start" @submit.prevent="register">
                             <div class="flex justify-between items-center w-full gap-8">
 
@@ -51,11 +54,14 @@
             </div>
         </section>
     </div>
+    <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
+
 </template>
 
 <script>
 import axios from 'axios';
 import { useStores } from '~/stores/counter';
+import Loader from '~/components/Loader.vue';
 
 export default {
     data() {
@@ -64,7 +70,10 @@ export default {
             surnames: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            mostrarModalLoader: false,
+            error: false,
+            message: ''
         }
     },
 
@@ -76,6 +85,7 @@ export default {
 
         async register() {
             const store = useStores();
+            this.mostrarModalLoader = true;
             try {
                 const response = await axios.post('http://localhost:8000/api/register', {
                     email: this.email,
@@ -93,8 +103,13 @@ export default {
                 });
                 this.$router.push('/tienda');
                 console.log(response.data);
+                this.mostrarModalLoader = false;
             } catch (error) {
                 console.error('Error:', error);
+                this.error = true;
+                //se hace el join para que se muestren todos los errores en un solo mensaje
+                this.message = error.response.data.errors.join(', ');
+                this.mostrarModalLoader = false;
             }
 
         }

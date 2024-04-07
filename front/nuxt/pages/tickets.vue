@@ -18,23 +18,29 @@
             <button class="bg-black text-white py-1 px-2 rounded" @click="cancelar(ticket.id)">Cancelar</button>
         </div>
     </div>
+    <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
+
 </template>
 
 <script>
 import { useStores } from '~/stores/counter';
 import axios from 'axios';
+import Loader from '~/components/Loader.vue';
 
 export default {
     data() {
         return {
-            tickets: []
+            tickets: [],
+            mostrarModalLoader: false
         }
     },
     methods: {
         async cancelar(id) {
+            this.mostrarModalLoader = true;
             const token = useStores().userInfo.token;
             if (!token) {
                 console.error("No se encontró el token de autenticación.");
+                this.mostrarModalLoader = false;
                 return;
             }
 
@@ -46,16 +52,20 @@ export default {
                 });
 
                 console.log("Respuesta:", response.data);
+                this.mostrarModalLoader = false;
             } catch (error) {
                 console.log('Error:', error);
+                this.mostrarModalLoader = false;
             }
         },
 
     },
     async mounted() {
         const token = useStores().userInfo.token;
+        this.mostrarModalLoader = true;
         if (!token) {
             console.error("No se encontró el token de autenticación.");
+            this.mostrarModalLoader = false;
             return;
         }
         
@@ -67,9 +77,10 @@ export default {
             });
             this.tickets = response.data;
             console.log("Esta es la respuesta", this.tickets);
-            
+            this.mostrarModalLoader = false;
         } catch (error) {
             console.error('Error:', error);
+            this.mostrarModalLoader = false;
         }
     }
 
