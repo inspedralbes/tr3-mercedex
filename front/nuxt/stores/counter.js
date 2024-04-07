@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 export const useStores = defineStore("counter",{
     state: () => ({
         cart: [],
-        cartCount: 0,
         mostrarCartModal: false,
         flag: "/img/flags/spain.jpg",
         loggedIn: false,
@@ -29,7 +28,9 @@ export const useStores = defineStore("counter",{
                 this.cart.push({ ...item, quantity: 1 });
             }
 
-            this.cartCount++;
+        },
+        lengthCart() {
+            return this.cart.length;
         },
         removeFromCart(itemId) {
             const index = this.cart.findIndex((item) => item.id === itemId);

@@ -15,9 +15,8 @@ import {computed} from 'vue';
     export default {
         data() {
             const cart = useStores();
-
             return {
-                count: computed(() => cart.cartCount)
+                count: computed(() => cart.lengthCart())
             }
         },
 
