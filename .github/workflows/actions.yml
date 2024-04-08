@@ -6,33 +6,33 @@ on:
     branches:
       - dev
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    services:
-      db:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: Mercedes
-        ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Comprobar Laravel
-        run: |
-          cd back/laravel
-          composer update
-          composer install
-          cp .env.example .env
-          php artisan key:generate
-          php artisan migrate --seed
-          php artisan test
+      jobs:
+        build:
+          runs-on: ubuntu-latest
+      
+          services:
+            mysql:
+              image: mysql:5.7
+              env:
+                MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                MYSQL_DATABASE: Mercedes
+              ports:
+                - 3306
+              options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+      
+            - name: Comprobar Laravel
+              run: |
+                cd back/laravel
+                composer install
+                cp .env.example .env
+                echo "DB_HOST=127.0.0.1" >> .env
+                php artisan key:generate
+                php artisan migrate --seed
+                php artisan test
 
 
   #     - name: Build Docker image
