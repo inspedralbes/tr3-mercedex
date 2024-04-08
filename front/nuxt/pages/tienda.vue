@@ -37,6 +37,7 @@ export default {
     try {
       const response = await axios.get('http://mercedex.daw.inspedralbes.cat/back/laravel/public/api/products');
       this.productos = response.data.products;
+      console.log("Version actualizadadaaadadaa")
       console.log("Esta es la respuesta", this.productos);
       this.mostrarModalLoader = false;
     } catch (error) {
