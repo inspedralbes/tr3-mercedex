@@ -24,6 +24,12 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Wait for MySQL
+              run: |
+                  while ! mysqladmin ping -hmysql --silent; do
+                    sleep 1
+                  done
+
             - name: Comprobar Laravel
               run: |
                   cd back/laravel
