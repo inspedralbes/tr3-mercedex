@@ -70,6 +70,9 @@ export const useStores = defineStore("counter",{
         getLoggedIn() {
             return this.loggedIn;
         },
+        getCart() {
+            return this.cart;
+        },
 
         /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
