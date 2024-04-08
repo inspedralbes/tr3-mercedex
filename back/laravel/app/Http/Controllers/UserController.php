@@ -55,9 +55,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed',
         ], [
-            'required' => 'El :attribute es obligatorio.',
-            'email' => 'El :attribute debe ser una dirección de correo válida.',
-            'unique' => 'El :attribute ya está en uso.',
+            'required' => 'El :attribute es obligatorio',
+            'email' => 'El :attribute debe ser una dirección de correo válida',
+            'unique' => 'El :attribute ya está en uso',
         ]);
 
         if ($validator->fails()) {
