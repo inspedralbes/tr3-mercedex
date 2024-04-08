@@ -18,13 +18,10 @@ class ApiRouteTest extends TestCase
      */
     public function testVentasRoute()
     {
-        // Crear un usuario de prueba
         $user = User::factory()->create();
 
-        // Crear un token de Sanctum para el usuario
         $token = $user->createToken('test-token')->plainTextToken;
 
-        // Crear un producto de prueba
         $product = Product::factory()->create([
             'name' => 'Test Product',
             'description' => 'This is a test product',
@@ -33,7 +30,6 @@ class ApiRouteTest extends TestCase
             'image' => 'path/to/image.jpg',
         ]);
 
-        // Datos de la solicitud
         $data = [
             'address' => '123 Test Street',
             'phone' => '1234567890',
@@ -45,16 +41,14 @@ class ApiRouteTest extends TestCase
             ],
         ];
 
-        // Enviar la solicitud con el token de Sanctum en la cabecera
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->postJson('/api/ventas', $data);
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
         $response->assertStatus(200);
 
-        // Asegurarse de que la respuesta tenga el mensaje esperado
-        $response->assertJson(['message' => 'Ticket creado con éxito y productos vendidos con éxito']);
+        // Verifica que la respuesta contenga el campo 'id'
+        $response->assertJsonStructure(['id']);
     }
 
     /**
@@ -64,18 +58,14 @@ class ApiRouteTest extends TestCase
      */
     public function testTicketsRoute()
     {
-        // Crear un usuario de prueba
         $user = User::factory()->create();
 
-        // Crear un token de Sanctum para el usuario
         $token = $user->createToken('test-token')->plainTextToken;
 
-        // Enviar la solicitud con el token de Sanctum en la cabecera
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get('/api/tickets');
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
         $response->assertStatus(200);
     }
 
@@ -86,18 +76,14 @@ class ApiRouteTest extends TestCase
      */
     public function testLogoutRoute()
     {
-        // Crear un usuario de prueba
         $user = User::factory()->create();
 
-        // Crear un token de Sanctum para el usuario
         $token = $user->createToken('test-token')->plainTextToken;
 
-        // Enviar la solicitud con el token de Sanctum en la cabecera
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post('/api/logout');
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
         $response->assertStatus(200);
     }
 
@@ -108,20 +94,15 @@ class ApiRouteTest extends TestCase
      */
     public function testCancelRoute()
     {
-        // Crear un usuario y un ticket para ese usuario
         $user = User::factory()->create();
         $ticket = Ticket::factory()->create(['user_id' => $user->id]);
 
-        // Autenticar como el usuario
         $this->actingAs($user);
 
-        // Enviar la solicitud de cancelación
         $response = $this->post('/api/cancelar/' . $ticket->id);
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
         $response->assertStatus(200);
 
-        // Asegurarse de que el ticket fue cancelado
         $this->assertDatabaseHas('tickets', [
             'id' => $ticket->id,
             'status' => 'cancelado',
@@ -147,19 +128,17 @@ class ApiRouteTest extends TestCase
      */
     public function testLoginRoute()
     {
-        // Crear un usuario
-        $user = User::factory()->create();
-
-        // Enviar la solicitud de inicio de sesión
-        $response = $this->post('/api/login', [
-            'email' => $user->email,
-            'password' => 'password', // Asume que la contraseña es 'password'
+        $user = User::factory()->create([
+            'password' => bcrypt('password'),
         ]);
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
         $response->assertStatus(200);
 
-        // Asegurarse de que la respuesta contenga un token
         $responseData = $response->json('data');
         $this->assertNotNull($responseData['token']);
     }
@@ -171,7 +150,6 @@ class ApiRouteTest extends TestCase
      */
     public function testRegisterRoute()
     {
-        // Datos de registro
         $data = [
             'name' => 'Test User',
             'surnames' => 'Test User',
@@ -180,13 +158,10 @@ class ApiRouteTest extends TestCase
             'password_confirmation' => 'password',
         ];
 
-        // Enviar la solicitud de registro
         $response = $this->post('/api/register', $data);
 
-        // Asegurarse de que la respuesta tenga un estado HTTP 200
         $response->assertStatus(200);
 
-        // Asegurarse de que el usuario fue creado
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
         ]);
