@@ -1,8 +1,9 @@
 <template>
+
+    <div class="bg-black">
+        <Header />
+    </div>
     <div v-if="!mostrarCompraExitosa">
-        <div class="bg-black">
-            <Header />
-        </div>
         <form @submit.prevent="comprar" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div v-if="error" class="bg-red-500 text-white p-2 rounded">
                 <p>{{ this.message }}</p>
@@ -53,7 +54,7 @@ export default {
             fetchOkey: false,
             mostrarCompraExitosa: false,
             error: false,
-            message: ''
+            message: '',
         };
     },
     methods: {
@@ -64,7 +65,7 @@ export default {
                 this.mostrarModalLoader = false;
                 this.error = true;
                 this.message = 'El carrito está vacío'
-                return ;
+                return;
             }
             const items = useStores().cart.map(item => ({
                 id: item.id,
@@ -114,6 +115,7 @@ export default {
                     });
                     console.log('Compra realizada?:', response.data);
                     this.mostrarModalLoader = false;
+                    this.mostrarCompraExitosa = true; 
                 } catch (error) {
                     console.error('Error:', error);
                     this.error = true;
@@ -121,9 +123,8 @@ export default {
                     this.mostrarModalLoader = false;
                 }
             }
-            // this.mostrarCompraExitosa = true;
 
-            useStores().clearCart();
+           
 
         }
     }
