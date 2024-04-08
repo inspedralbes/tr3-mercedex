@@ -35,7 +35,7 @@ export default {
   async mounted() {
     this.mostrarModalLoader = true;
     try {
-      const response = await axios.get('http://localhost:8000/api/products');
+      const response = await axios.get('http://mercedex.daw.inspedralbes.cat/back/laravel/public/api/products');
       this.productos = response.data.products;
       console.log("Esta es la respuesta", this.productos);
       this.mostrarModalLoader = false;
