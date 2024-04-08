@@ -11,13 +11,13 @@
             <NuxtLink to="/tecnologia">Tecnología</NuxtLink>
         </nav>
 
-        <div class="flex gap-x-3 text-white [&>a:hover]:text-green-300 [&>a]:transition">
+        <div class="flex gap-x-3 text-white [&>a]:transition">
             <NuxtLink to="/questions">
                 <HelpIcon />
             </NuxtLink>
             <SelectLanguage />
-            <NuxtLink to="/login">
-                <UserIcon />
+            <NuxtLink :to="getLoggedIn() ? '' : '/login'">
+                <ProfileDropdown />
             </NuxtLink>
             <NuxtLink class="cursor-pointer" v-if="cartIcon" @click="mostrarCarritoModal">
                 <CartCount />
@@ -27,31 +27,35 @@
     </div>
 </template>
 
-<script>
-import CartModal from '@/components/CartModal.vue';
-import { useCartStore } from '@/stores/counter';
-
-export default {
-    data() {
-        return {
-            cartIcon: false
-        }
-    },
-    watch: {
-        '$route': function (to, from) {
-            this.cartIcon = to.path === '/tienda';
-        }
-    },
-
-    methods: {
-        mostrarCarritoModal() {
-            const cart = useCartStore();
-            cart.setCartModal(true);
+    <script>
+    import CartModal from '@/components/CartModal.vue';
+    import { useStores } from '@/stores/counter';
+    
+    export default {
+        data() {
+            return {
+                cartIcon: false
+            }
         },
-
-    },
-    created() {
-        this.cartIcon = this.$route.path === '/tienda';
+        watch: {
+            '$route': function (to, from) {
+                this.cartIcon = to.path === '/tienda';
+            }
+        },
+    
+        methods: {
+            mostrarCarritoModal() {
+                const cart = useStores();
+                cart.setCartModal(true);
+            },
+            getLoggedIn() {
+                const store = useStores();
+                return store.getLoggedIn();
+            }
+    
+        },
+        created() {
+            this.cartIcon = this.$route.path === '/tienda';
+        }
     }
-}
-</script>
+    </script>

@@ -11,31 +11,37 @@
       <button class="bg-black text-white py-1 px-2 rounded" @click="añadirCarrito(producto)">Añadir al carro</button>
     </div>
   </div>
+  <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
 </template>
 
 <script>
-import { useCartStore } from '~/stores/counter';
+import { useStores } from '~/stores/counter';
+import Loader from '~/components/Loader.vue';
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      productos: []
+      productos: [],
+      mostrarModalLoader: false
     }
   },
   methods: {
     async añadirCarrito(producto) {
-      useCartStore().addToCart(producto);
+      useStores().addToCart(producto);
       console.log("Producto añadido al carrito:", producto);
     }
   },
   async mounted() {
+    this.mostrarModalLoader = true;
     try {
       const response = await axios.get('http://localhost:8000/api/products');
       this.productos = response.data.products;
       console.log("Esta es la respuesta", this.productos);
+      this.mostrarModalLoader = false;
     } catch (error) {
       console.error('Error:', error);
+      this.mostrarModalLoader = false;
     }
   }
 }

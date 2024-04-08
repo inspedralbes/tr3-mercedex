@@ -47,6 +47,7 @@ class UserController extends Controller
     }
 
     public function register(Request $request)
+
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -54,9 +55,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed',
         ], [
-            'required' => 'El :attribute es obligatorio.',
-            'email' => 'El :attribute debe ser una dirección de correo válida.',
-            'unique' => 'El :attribute ya está en uso.',
+            'required' => 'El :attribute es obligatorio',
+            'email' => 'El :attribute debe ser una dirección de correo válida',
+            'unique' => 'El :attribute ya está en uso',
         ]);
 
         if ($validator->fails()) {
@@ -74,7 +75,7 @@ class UserController extends Controller
 
         $user->makeHidden(['created_at', 'updated_at']);
 
-        $token = $user->createToken('Spottunes')->plainTextToken;
+        $token = $user->createToken('Mercedex')->plainTextToken;
         $response = [
             'user' => $user,
             'token' => $token
@@ -88,6 +89,7 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Token eliminado']);
     }
+    
     public function index()
     {
         //

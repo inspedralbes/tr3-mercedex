@@ -1,35 +1,55 @@
 import { defineStore } from "pinia";
 
-export const useCartStore = defineStore("cart", {
+export const useStores = defineStore("counter",{
     state: () => ({
         cart: [],
-        cartCount: 0,
         mostrarCartModal: false,
         flag: "/img/flags/spain.jpg",
+        loggedIn: false,
         userInfo: {
+            id: null,
             name: "",
-            surnames:"",
+            surnames: "",
             email: "",
             token: "",
         },
     }),
+    persist: {
+        storage: persistedState.localStorage,
+        paths:['userInfo', 'loggedIn']
+    },
     actions: {
         addToCart(item) {
             const existingItem = this.cart.find((i) => i.id === item.id);
-            
+
             if (existingItem) {
                 existingItem.quantity++;
             } else {
                 this.cart.push({ ...item, quantity: 1 });
             }
-            
-            this.cartCount++;
+
+        },
+        lengthCart() {
+            return this.cart.length;
         },
         removeFromCart(itemId) {
             const index = this.cart.findIndex((item) => item.id === itemId);
 
             if (index !== -1) {
                 this.cart.splice(index, 1);
+            }
+        },
+        decreaseQuantity(itemId) {
+            const item = this.cart.find((item) => item.id === itemId);
+
+            if (item) {
+                item.quantity--;
+
+                if (item.quantity === 0) {
+                    this.removeFromCart(itemId);
+                }
+
+                this.cartCount--;
             }
         },
         clearCart() {
@@ -44,6 +64,15 @@ export const useCartStore = defineStore("cart", {
         getFlag() {
             return this.flag;
         },
+        getUserInfo() {
+            return this.userInfo;
+        },
+        getLoggedIn() {
+            return this.loggedIn;
+        },
+        getCart() {
+            return this.cart;
+        },
 
         /* --------------------------------- SETTERS -------------------------------- */
         setCartModal(value) {
@@ -53,7 +82,14 @@ export const useCartStore = defineStore("cart", {
             this.flag = value;
         },
         setUserInfo(userInfo) {
-            this.userInfo = userInfo;
+            this.userInfo.id = userInfo.id;
+            this.userInfo.name = userInfo.name;
+            this.userInfo.surnames = userInfo.surnames;
+            this.userInfo.email = userInfo.email;
+            this.userInfo.token = userInfo.token;
+        },
+        setLoggedIn(value) {
+            this.loggedIn = value;
         },
     },
 });
