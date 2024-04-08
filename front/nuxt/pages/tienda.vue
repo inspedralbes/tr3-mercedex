@@ -3,12 +3,13 @@
     <Header />
   </div>
   <div class="grid grid-cols-3 gap-4">
-    <div class="bg-gray-200 m-16 p-14 rounded-lg shadow-md" v-for="(producto, index) in productos" :key="index">
+    <div class="bg-gray-200 m-16 p-14 rounded-lg shadow-md" v-for="(producto, index) in productos" :key="index" :class="{ 'opacity-50': producto.stock === 0 }">
+      <div v-if="producto.stock === 0" class="text-red-500 text-center">Este producto esta fuera de stock</div>
       <img :src="producto.image" alt="">
       <h2 class="text-xl font-bold mb-2">{{ producto.name }}</h2>
       <p class="mb-2">{{ producto.description }}</p>
       <p>{{ producto.price }}€</p>
-      <button class="bg-black text-white py-1 px-2 rounded" @click="añadirCarrito(producto)">Añadir al carro</button>
+      <button class="bg-black text-white py-1 px-2 rounded" @click="añadirCarrito(producto)" :disabled="producto.stock === 0">Añadir al carro</button>
     </div>
   </div>
   <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
