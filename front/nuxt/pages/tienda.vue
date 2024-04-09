@@ -35,14 +35,7 @@ export default {
   async mounted() {
     this.mostrarModalLoader = true;
     try {
-      const response = await axios.get('https://mercedex.daw.inspedralbes.cat/back/laravel/public/api/products', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // Aquí defines los dominios permitidos
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Métodos HTTP permitidos
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization' // Encabezados permitidos
-      }
-    });
+      const response = await axios.get('https://mercedex.daw.inspedralbes.cat/back/laravel/public/api/products');
       this.productos = response.data.products;
       console.log("Version actualizadadaaadadaa")
       console.log("Esta es la respuesta", this.productos);
