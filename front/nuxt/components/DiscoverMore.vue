@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex flex-col justify-center items-center gap-4 mb-10">
-        <h2 class="text-4xl font-semibold">¿Quieres conocer más?</h2>
+        <h2 class="text-4xl font-semibold text-black">¿Quieres conocer más?</h2>
         <div class="w-[90%] h-[800px] grid grid-cols-3 gap-4">
             <div class="relative rounded-md overflow-hidden">
                 <img class="w-full h-full object-cover brightness-75"
