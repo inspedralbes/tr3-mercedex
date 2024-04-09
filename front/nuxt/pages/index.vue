@@ -3,8 +3,8 @@
     <div class="z-20 relative text-white">
         <Header />
         <Hero />
-
-
+        
+        <DiscoverMore />
     </div>
 </template>
 
