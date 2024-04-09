@@ -1,5 +1,5 @@
 <template>
-    <section class="flex flex-col gap-y-4 justify-center items-start px-20 mt-32">
+    <section class="flex flex-col gap-y-4 justify-center items-start px-20 mt-32 mb-80">
         <h1 class="text-6xl font-semibold">Nuevos EQA y EQB</h1>
         <p class="text-xl max-w-[42%]">
             ¡Experimenta la revolución eléctrica con los nuevos EQA y EQB de

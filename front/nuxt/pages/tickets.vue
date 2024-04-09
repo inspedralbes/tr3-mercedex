@@ -3,24 +3,41 @@
         <Header />
     </div>
     <div class="grid grid-cols-3 gap-4">
-        <div class="bg-gray-200 m-16 p-14 rounded-lg shadow-md" v-for="(ticket, index) in tickets" :key="index">
-            <h2 class="text-xl font-bold mb-2">{{ ticket.name }} {{ ticket.lastname }}</h2>
-            <p class="mb-2">Dirección:{{ ticket.address }}</p>
-            <p class="mb-2">Teléfono:{{ ticket.phone }}</p>
-            <p class="mb-2">Estado:{{ ticket.status }}</p>
+        <div
+            class="bg-gray-200 m-16 p-14 rounded-lg shadow-md"
+            v-for="(ticket, index) in tickets"
+            :key="index"
+            :class="{ 'opacity-50': ticket.status === 'cancelado' }"
+        >
+            <h2 class="text-3xl font-bold mb-1">Ticket {{ ticket.id }}</h2>
+            <div class="border-b-2 border-black mb-9"></div>
+            <p class="mb-2">Dirección: {{ ticket.address }}</p>
+            <p class="mb-2">Teléfono: {{ ticket.phone }}</p>
+            <p class="mb-2">Estado: {{ ticket.status }}</p>
+            <p class="mb-9">Para: {{ ticket.name }}</p>
             <div v-for="(product, pIndex) in ticket.products" :key="`product-${pIndex}`">
-                <img :src="product.image" alt="">
-                <p>{{ product.name }}</p>
-                <p>{{ product.quantity }}</p>
-                <p>{{ product.price }}€</p>
+                <div class="flex items-center mb-14">
+                    <img :src="product.image" alt="" class="w-30 h-10 mr-2">
+                    <div>
+                        <p class="font-bold">{{ product.name }}</p>
+                        <p class="text-sm">Cantidad: {{ product.quantity }}</p>
+                        <p class="text-sm">Precio: {{ product.price }}€</p>
+                    </div>
+                </div>
             </div>
-            <p>Total:{{ ticket.total }}€</p>
-            <button class="bg-black text-white py-1 px-2 rounded" @click="cancelar(ticket.id)">Cancelar</button>
+            <div class="flex justify-center items-center mt-5">
+                <p class="text-2xl font-bold">Total: {{ ticket.total }}€</p>
+            </div>
+            <div class="flex justify-center items-center mt-5">
+                <button v-if="ticket.status !== 'cancelado'" class="bg-black text-white py-2 px-20 rounded"
+                    @click="cancelar(ticket.id)">Cancelar</button>
+            </div>
         </div>
     </div>
     <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
-
 </template>
+
+
 
 <script>
 import { useStores } from '~/stores/counter';
@@ -50,9 +67,10 @@ export default {
                         Authorization: `Bearer ${token}`
                     }
                 });
-
+                window.location.reload();
                 console.log("Respuesta:", response.data);
                 this.mostrarModalLoader = false;
+
             } catch (error) {
                 console.log('Error:', error);
                 this.mostrarModalLoader = false;
@@ -68,7 +86,7 @@ export default {
             this.mostrarModalLoader = false;
             return;
         }
-        
+
         try {
             const response = await axios.get('http://localhost:8000/api/tickets', {
                 headers: {
