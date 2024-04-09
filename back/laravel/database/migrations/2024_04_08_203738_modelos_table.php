@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image',500);
+            $table->string('image',1020);
             $table->string('type');
             $table->string('bodywork');
             
