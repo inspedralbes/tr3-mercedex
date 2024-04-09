@@ -21,19 +21,19 @@
                     </div>
                 </div>
                 <div class="h-1/2 relative rounded-md overflow-hidden">
-                    <img class="w-full h-full object-cover brightness-75" src="https://images.prismic.io/carwow/67668c35-b889-41f3-bec3-3f8ab207f2db_LHD+Mercedes-Benz+Clase-G+azul-13.jpg?fit=clip&q=60&w=750&cs=tinysrgb&auto=format" alt="">
+                    <img class="w-full h-full object-cover brightness-75" src="https://www.mercedes-benz.es/content/spain/es/passengercars/services/collection/_jcr_content/root/responsivegrid/text_media_module/image.component.damq6.3329867537239.jpg/collection-mb-300sl-14.jpg" alt="">
                     <div class="w-3/4 absolute bottom-5 left-5">
-                        <h3 class="text-2xl font-semibold">Mercedes de ocasion a tu disposicion</h3>
-                        <p class="text-sm">Oportunidades asi no duran para siempre, ¡aprovechala!</p>
+                        <h3 class="text-2xl font-semibold">Mercedes ahora en tamaño de bolsillo</h3>
+                        <p class="text-sm">Consigue tus coches favoritos en miniatura</p>
                     </div>
                 </div>
             </div>
             <div class="relative rounded-md overflow-hidden">
                 <img class="w-full h-full object-cover brightness-75"
-                    src="https://valenciaplaza.com/public/Image/2021/7/21C0371_003_NoticiaAmpliada.jpg" alt="">
+                    src="https://images.prismic.io/carwow/67668c35-b889-41f3-bec3-3f8ab207f2db_LHD+Mercedes-Benz+Clase-G+azul-13.jpg?fit=clip&q=60&w=750&cs=tinysrgb&auto=format" alt="">
                     <div class="w-3/4 absolute bottom-5 left-5">
-                        <h3 class="text-2xl font-semibold">Seguimos cerca de ti</h3>
-                        <p class="text-sm">Elige tu modelo y visitanos al concesionario mas cercano</p>
+                        <h3 class="text-2xl font-semibold">Mercedes de ocasion a tu disposicion</h3>
+                        <p class="text-sm">Oportunidades asi no duran para siempre, ¡aprovechala!</p>
                     </div>
             </div>
         </div>
