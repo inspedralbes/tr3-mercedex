@@ -48,7 +48,7 @@
                 </div>
                 <div class="h-full w-80 w-[55%]">
                     <img class="h-full object-cover w-full"
-                        src="https://soymotor.com/sites/default/files/2023-04/mercedes-benz-clase-e-2024-exterior-1-soymotor.jpg"
+                        src="/img/img_register.jpg"
                         alt="">
                 </div>
             </div>
@@ -101,6 +101,7 @@ export default {
                     email: response.data.data.user.email,
                     token: response.data.data.token,
                 });
+                store.setLoggedIn(true);
                 this.$router.push('/tienda');
                 console.log(response.data);
                 this.mostrarModalLoader = false;

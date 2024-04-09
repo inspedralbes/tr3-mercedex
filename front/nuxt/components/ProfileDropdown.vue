@@ -23,12 +23,16 @@
             </Button>
         </div>
     </div>
+    <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
+
 </template>
 
 <script>
 import { useStores } from '@/stores/counter';
 import axios from 'axios';
 import { computed } from 'vue'
+import Loader from '~/components/Loader.vue';
+
 
 export default {
     data() {
@@ -36,7 +40,9 @@ export default {
 
         return {
             isOpen: false,
-            flagUrl: computed(() => cart.flag)
+            flagUrl: computed(() => cart.flag),
+            mostrarModalLoader: false,
+
         }
     },
     methods: {
@@ -44,6 +50,7 @@ export default {
             this.isOpen = !this.isOpen
         },
         Logout() {
+            this.mostrarModalLoader = true;
             const store = useStores();
             const token = useStores().userInfo.token;
             console.log(`Bearer ${token}`);
@@ -56,8 +63,12 @@ export default {
                 console.log(response);
                 store.setLoggedIn(false);
                 store.userInfo = {};
+                this.$router.push('/');
+                this.mostrarModalLoader = false;
             } catch (error) {
                 console.error('Error:', error);
+                this.mostrarModalLoader = false;
+
             }
         }
     }
