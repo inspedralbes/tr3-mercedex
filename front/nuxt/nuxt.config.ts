@@ -5,8 +5,5 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt"
-  ],
-  router: {
-    middleware: ['cors'] // Middleware debe ser un array
-  }
+  ]
 })
