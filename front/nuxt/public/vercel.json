@@ -8,7 +8,7 @@
           "value": "public, max-age=0, must-revalidate"
         },
         {
-          "key": "TEST",
+          "key": "TEST2",
           "value": "true"
         }
       ]

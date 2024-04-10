@@ -21,6 +21,8 @@
   <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
 </template>
 
+
+
 <script>
 import { useStores } from '~/stores/counter';
 import Loader from '~/components/Loader.vue';
