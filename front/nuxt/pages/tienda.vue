@@ -14,13 +14,13 @@
       </div>
       <div class="flex justify-center items-center mt-5">
         <button class="bg-black text-white py-3 px-20 rounded" @click="añadirCarrito(producto)"
-          :disabled="producto.stock === 0">Añadir al carro</button>
+          :disabled="producto.stock === 0">Añadir al carro.</button>
       </div>
     </div>
   </div>
   <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
-</template>
 
+</template>
 
 
 <script>
