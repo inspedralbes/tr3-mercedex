@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Product;
 use App\Models\Ticket_Product;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Subscribe;
 
 class TicketsController extends Controller
 {
@@ -18,9 +16,6 @@ class TicketsController extends Controller
         // mostrar todos los tickets del usuario autenticado
         $tickets = Ticket::where('user_id', auth()->user()->id)->get();
         
-        $email= 'a22ivabarsan@inspedralbes.cat';
-        Mail::to($email)->send(new Subscribe($email));
-
         $ticketsAllInfo = [];
         foreach ($tickets as $ticket) {
             $tickets_products = Ticket_Product::where('ticket_id', $ticket->id)->get();

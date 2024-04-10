@@ -8,6 +8,9 @@ use App\Models\Ticket_Product;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Subscribe;
+
 
 
 class Ticket_ProductController extends Controller
@@ -42,12 +45,17 @@ class Ticket_ProductController extends Controller
         // Buscar el ticket
         $ticket = Ticket::findOrFail($ticketId);
 
+       
+
         // Validar los datos de entrada
         $validatedData = $request->validate([
             'products' => 'required|array', // Cambio de 'products.*' a 'products'
             'products.*.productId' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',
-        ]);
+        ]); 
+        
+        $email = auth()->user()->email;
+        Mail::to($email)->send(new Subscribe($email));
 
         // Recorrer los productos y asociarlos al ticket
         foreach ($request->products as $productData) {
@@ -61,12 +69,26 @@ class Ticket_ProductController extends Controller
             }
 
             $ticket->products()->attach($productId, ['quantity' => $quantity]);
+            // Reduce the stock of the product
+            $product->stock -= $quantity;
+            $product->save();
         }
 
-        // Reduce the stock of the product
-        $product->stock -= $quantity;
-        $product->save();
-        return response()->json(['message' => 'Productos asociados al ticket con éxito'], 200);
+        $productos = Product::select('name', 'image')
+        ->join('ticket_product', 'products.id', '=', 'ticket_product.product_id')
+        ->where('ticket_product.ticket_id', $ticketId)
+        ->get();
+
+        $html = view('emails.subscribers', compact('ticket', 'productos'))->render();
+
+        $email = auth()->user()->email;
+        Mail::to($email)->send(new Subscribe($email));
+
+        return response()->json([
+            'message' => 'Productos asociados al ticket con éxito',
+            'html' => $html
+        ], 200);
+        
     }
 
 
