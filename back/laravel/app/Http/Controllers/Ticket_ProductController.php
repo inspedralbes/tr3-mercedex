@@ -31,7 +31,7 @@ class Ticket_ProductController extends Controller
             ->join('ticket_product', 'products.id', '=', 'ticket_product.product_id')
             ->where('ticket_product.ticket_id', $ticketId)
             ->get();
-        
+
 
         // Retorna los productos asociados al ticket
         return response()->json(['productos' => $productos], 200);
@@ -45,17 +45,14 @@ class Ticket_ProductController extends Controller
         // Buscar el ticket
         $ticket = Ticket::findOrFail($ticketId);
 
-       
+
 
         // Validar los datos de entrada
         $validatedData = $request->validate([
             'products' => 'required|array', // Cambio de 'products.*' a 'products'
             'products.*.productId' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',
-        ]); 
-        
-        $email = auth()->user()->email;
-        Mail::to($email)->send(new Subscribe($email));
+        ]);
 
         // Recorrer los productos y asociarlos al ticket
         foreach ($request->products as $productData) {
@@ -69,26 +66,25 @@ class Ticket_ProductController extends Controller
             }
 
             $ticket->products()->attach($productId, ['quantity' => $quantity]);
-            // Reduce the stock of the product
             $product->stock -= $quantity;
             $product->save();
         }
 
-        $productos = Product::select('name', 'image')
-        ->join('ticket_product', 'products.id', '=', 'ticket_product.product_id')
-        ->where('ticket_product.ticket_id', $ticketId)
-        ->get();
 
-        $html = view('emails.subscribers', compact('ticket', 'productos'))->render();
-
+        $ticket = Ticket::findOrFail($ticketId);
+        $productos = Product::select('name', 'image', 'ticket_product.quantity')
+            ->join('ticket_product', 'products.id', '=', 'ticket_product.product_id')
+            ->where('ticket_product.ticket_id', $ticketId)
+            ->get();
+        
         $email = auth()->user()->email;
-        Mail::to($email)->send(new Subscribe($email));
+        Mail::to($email)->send(new Subscribe($ticket, $productos));
+
 
         return response()->json([
-            'message' => 'Productos asociados al ticket con éxito',
-            'html' => $html
+            'message' => 'Productos asociados al ticket con éxito'
         ], 200);
-        
+
     }
 
 

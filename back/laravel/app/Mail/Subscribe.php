@@ -20,14 +20,17 @@ class Subscribe extends Mailable
      *
      * @return void
      */
-    public $email;
-    public function __construct($email) {
-        $this->email = $email;
+    public $ticket;
+    public $productos;
+      public function __construct($ticket, $productos)
+    {
+        $this->ticket = $ticket;
+        $this->productos = $productos;
     }
 
     public function build(){
         return $this
-            ->subject('Thank you for subscribing to our newsletter')
+            ->subject('Mercedes-Benz Oficial')
             ->markdown('emails.subscribers');
     }
 
@@ -39,7 +42,7 @@ class Subscribe extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Subscribe',
+            subject: 'Mercedes-Benz Oficial',
         );
     }
 
