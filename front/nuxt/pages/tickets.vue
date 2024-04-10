@@ -2,13 +2,12 @@
     <div class="bg-black">
         <Header />
     </div>
+    <div class="mt-20">
+        <h1 class="text-center font-bold text-5xl">Mis Pedidos</h1>
+    </div>
     <div class="grid grid-cols-3 gap-4">
-        <div
-            class="bg-gray-200 m-16 p-14 rounded-lg shadow-md"
-            v-for="(ticket, index) in tickets"
-            :key="index"
-            :class="{ 'opacity-50': ticket.status === 'cancelado' }"
-        >
+        <div class="bg-gray-200 m-16 p-14 rounded-lg shadow-md" v-for="(ticket, index) in tickets" :key="index"
+            :class="{ 'opacity-50': ticket.status === 'cancelado' }">
             <h2 class="text-3xl font-bold mb-1">Ticket {{ ticket.id }}</h2>
             <div class="border-b-2 border-black mb-9"></div>
             <p class="mb-2">Dirección: {{ ticket.address }}</p>

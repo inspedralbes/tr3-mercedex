@@ -16,7 +16,7 @@ export const useStores = defineStore("counter",{
     }),
     persist: {
         storage: persistedState.localStorage,
-        paths:['userInfo', 'loggedIn']
+        paths:['userInfo', 'loggedIn','cart']
     },
     actions: {
         addToCart(item) {
