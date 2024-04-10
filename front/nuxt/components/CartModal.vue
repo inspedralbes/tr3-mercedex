@@ -41,7 +41,9 @@
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
-      <NuxtLink to="/compra" class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">Comprar</NuxtLink>
+        <NuxtLink to="/compra"
+          class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">
+          Comprar</NuxtLink>
       </div>
 
     </div>
@@ -88,7 +90,8 @@ export default {
       this.mostrarModalConfirmacion = false;
     },
     calcularTotal() {
-      return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+      let total = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+      return total.toFixed(2);
     },
     cerrarModal() {
       const cart = useStores();
