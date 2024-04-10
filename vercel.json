@@ -1,7 +1,7 @@
 {
   "headers": [
        {
-      "source": "/(.*)",
+      "source": "/tienda",
       "headers": [
         {
           "key": "Access-Control-Allow-Credentials",
