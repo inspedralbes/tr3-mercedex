@@ -28,6 +28,8 @@ import { useStores } from '~/stores/counter';
 import Loader from '~/components/Loader.vue';
 import axios from 'axios';
 
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
 export default {
   data() {
     return {
@@ -44,7 +46,7 @@ export default {
   async mounted() {
     this.mostrarModalLoader = true;
     try {
-      const response = await axios.get('https://mercedex.daw.inspedralbes.cat/back/laravel/public/api/products');
+      const response = await axios.get(`${url}/products`);
       this.productos = response.data.products;
       console.log("Version actualizadadaaadadaa")
       console.log("Esta es la respuesta", this.productos);
