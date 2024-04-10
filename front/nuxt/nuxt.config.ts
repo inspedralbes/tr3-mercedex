@@ -5,5 +5,14 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt"
-  ]
+  ],
+  routeRules: {
+    '/tienda': {
+      security: {
+        headers: {
+          crossOriginEmbedderPolicy: "unsafe-none",
+        },
+      },
+    },
+  }
 })
