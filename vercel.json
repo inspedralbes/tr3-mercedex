@@ -8,7 +8,7 @@
           "value": "public, max-age=0, must-revalidate"
         },
         {
-          "key": "TEST1",
+          "key": "TEST_Arrel",
           "value": "true"
         }
       ]
