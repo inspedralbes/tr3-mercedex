@@ -6,13 +6,4 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt"
   ],
-  routeRules: {
-    '/tienda': {
-      security: {
-        headers: {
-          crossOriginEmbedderPolicy: "unsafe-none",
-        },
-      },
-    },
-  }
 })
