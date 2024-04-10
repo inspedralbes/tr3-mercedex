@@ -1,6 +1,18 @@
 {
   "headers": [
-   
+    {
+      "source": "/tienda*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "TEST_Arrel",
+          "value": "true"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

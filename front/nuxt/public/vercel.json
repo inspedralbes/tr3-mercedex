@@ -4,7 +4,7 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Access-Control-Allow-Credentials",
+          "key": "Access-Control-Allow-Credentials_FRONT",
           "value": "true"
         },
         {
