@@ -8,7 +8,7 @@ on:
       - dev
 
 jobs:
-  build:
+  Laravel:
     runs-on: ubuntu-latest
 
     services:
