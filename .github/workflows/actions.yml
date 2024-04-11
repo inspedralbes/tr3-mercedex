@@ -1,13 +1,14 @@
 name: Deploy
 run-name: ${{ github.actor }} - ${{ github.repository }}
 
+
 on:
   push:
     branches:
       - dev
 
 jobs:
-  build:
+  Laravel:
     runs-on: ubuntu-latest
 
     services:
@@ -34,3 +35,30 @@ jobs:
           php artisan test
 
       - run: echo "❤ Laravel OK ❤"
+
+
+
+  Nuxt:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_DATABASE: Mercedes
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Comprobar Nuxt
+        run: |
+          cd front/nuxt
+          npm install
+          npm run build
+          
+
+      - run: echo "❤ Nuxt OK ❤"
