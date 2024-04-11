@@ -8,11 +8,12 @@
         @click="cerrarModal">
         <CrossIcon />
       </button>
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="text-lg font-semibold">Mercedes-Benz Shop</h2>
+        <img src="../public/img/mercedes-logo.png" class=" mt-2 w-[50px]" alt="">
+      </div>
       <div v-if="cart.length > 0" class="overflow-y-auto h-[88%]">
-        <div class="flex flex-col items-center justify-center">
-          <h2 class="text-lg font-semibold">Mercedes-Benz Shop</h2>
-          <img src="../public/img/mercedes-logo.png" class=" mt-2 w-[50px]" alt="">
-        </div>
+
         <!-- <div class="relative">
           <div class="h-[4px] border-b border-transparent shadow-md mb-7 mt-4 absolute inset-x-0"></div>
         </div> -->
