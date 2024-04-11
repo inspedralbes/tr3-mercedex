@@ -50,6 +50,9 @@ import { useStores } from '~/stores/counter';
 import axios from 'axios';
 import Loader from '~/components/Loader.vue';
 import SuccessCompra from '~/components/SuccessCompra.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
+
 export default {
     data() {
         return {
@@ -91,7 +94,7 @@ export default {
             try {
                 console.log("Compra realizada con éxito");
 
-                const response = await axios.post('http://localhost:8000/api/ventas', {
+                const response = await axios.post(`${url}/ventas`, {
                     address: this.address,
                     phone: this.phone,
                     postal_code: this.postal_code,
@@ -124,7 +127,7 @@ export default {
 
             if (this.fetchOkey) {
                 try {
-                    const response = await axios.post(`http://localhost:8000/api/tickets_product/${ticketId}`, {
+                    const response = await axios.post(`${url}/tickets_product/${ticketId}`, {
                         products: items_2,
                     }, {
                         headers: {

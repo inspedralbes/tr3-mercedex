@@ -32,6 +32,7 @@ import { useStores } from '@/stores/counter';
 import axios from 'axios';
 import { computed } from 'vue'
 import Loader from '~/components/Loader.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
 
 
 export default {
@@ -55,7 +56,7 @@ export default {
             const token = useStores().userInfo.token;
             console.log(`Bearer ${token}`);
             try {
-                const response = axios.post('http://localhost:8000/api/logout', {}, {
+                const response = axios.post(`${url}/logout`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

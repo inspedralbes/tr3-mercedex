@@ -42,6 +42,8 @@
 import { useStores } from '~/stores/counter';
 import axios from 'axios';
 import Loader from '~/components/Loader.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
 
 export default {
     data() {
@@ -61,7 +63,7 @@ export default {
             }
 
             try {
-                const response = await axios.post(`http://localhost:8000/api/cancelar/${id}`, null, {
+                const response = await axios.post(`${url}/cancelar/${id}`, null, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -87,7 +89,7 @@ export default {
         }
 
         try {
-            const response = await axios.get('http://localhost:8000/api/tickets', {
+            const response = await axios.get(`${url}/tickets`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
