@@ -48,7 +48,6 @@ class ApiRouteTest extends TestCase
 
         $response->assertStatus(200);
 
-        // Verifica que la respuesta contenga el campo 'id'
         $response->assertJsonStructure(['id']);
     }
 
