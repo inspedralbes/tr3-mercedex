@@ -62,6 +62,7 @@ export default {
                 });
                 store.setLoggedIn(false);
                 store.userInfo = {};
+                store.clearCart();
                 this.$router.push('/');
                 this.mostrarModalLoader = false;
             } catch (error) {
