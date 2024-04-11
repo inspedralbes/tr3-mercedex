@@ -23,7 +23,7 @@
   <div class="grid grid-cols-3 gap-4">
     <div class="bg-white m-16 p-14 rounded-lg shadow-md cursor-pointer" v-for="(producto, index) in modelosFiltrados" :key="index"
       :class="{ 'opacity-50': producto.stock === 0 }">
-      <div v-if="producto.stock === 0" class="text-red-500 text-center">Este producto esta fuera de stock</div>
+      <div v-if="producto.stock === 0" class="text-red-500 text-center">Este producto está fuera de stock</div>
       <img :src="producto.image" alt="">
       <h2 class="text-xl font-bold mb-2">{{ producto.name }}</h2>
       <p class="mb-2">{{ producto.description }}</p>
@@ -31,15 +31,29 @@
         <p class="text-3xl font-bold">{{ producto.price }}€</p>
       </div>
       <div class="flex justify-center items-center mt-5">
-        <button class="bg-black text-white py-3 px-20 rounded border-2 border-black hover:bg-white hover:text-black transition duration-200 ease-in-out" @click="añadirCarrito(producto)"
-          :disabled="producto.stock === 0">Añadir al carro</button>
+        <button class="bg-black text-white py-3 px-20 rounded border-2 border-black hover:bg-white hover:text-black transition duration-200 ease-in-out" @click="mostrarDetalles(producto)"
+          :disabled="producto.stock === 0">Ver detalles</button>
       </div>
     </div>
   </div>
-  <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
 
+  <!-- Sección de detalles del producto -->
+  <div v-if="productoSeleccionado" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-10 rounded-lg shadow-lg">
+      <button class="absolute top-3 right-3 text-gray-600 hover:text-black" @click="cerrarDetalles">&times;</button>
+      <img :src="productoSeleccionado.image" alt="">
+      <h2 class="text-xl font-bold mb-2">{{ productoSeleccionado.name }}</h2>
+      <p class="mb-2">{{ productoSeleccionado.description }}</p>
+      <div class="flex justify-center items-center mt-5">
+        <p class="text-3xl font-bold">{{ productoSeleccionado.price }}€</p>
+      </div>
+      <div class="flex justify-center items-center mt-5">
+        <button class="bg-black text-white py-3 px-20 rounded border-2 border-black hover:bg-white hover:text-black transition duration-200 ease-in-out" @click="añadirCarrito(productoSeleccionado)"
+          :disabled="productoSeleccionado.stock === 0">Añadir al carrito</button>
+      </div>
+    </div>
+  </div>
 </template>
-
 
 <script>
 import { useStores } from '~/stores/counter';
@@ -55,17 +69,21 @@ export default {
       mostrarModalLoader: false,
       categorias: ['Automóviles', 'Cargadores', 'Merchandising', 'Accesorios'],
       mostrarCategoria: 'Automóviles',
+      productoSeleccionado: null // Agregamos una propiedad para almacenar el producto seleccionado
     }
   },
   methods: {
     async añadirCarrito(producto) {
       useStores().addToCart(producto);
       console.log("Producto añadido al carrito:", producto);
-    }
-  },
-  computed: {
-    modelosFiltrados() {
-      return this.productos.filter(producto => producto.category === this.mostrarCategoria);
+    },
+    mostrarDetalles(producto) {
+      // Mostrar detalles del producto seleccionado
+      this.productoSeleccionado = producto;
+    },
+    cerrarDetalles() {
+      // Cerrar la sección de detalles
+      this.productoSeleccionado = null;
     }
   },
   async mounted() {
