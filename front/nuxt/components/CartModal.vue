@@ -13,9 +13,9 @@
           <h2 class="text-lg font-semibold">Mercedes-Benz Shop</h2>
           <img src="../public/img/mercedes-logo.png" class=" mt-2 w-[50px]" alt="">
         </div>
-        <div class="relative">
+        <!-- <div class="relative">
           <div class="h-[4px] border-b border-transparent shadow-md mb-7 mt-4 absolute inset-x-0"></div>
-        </div>
+        </div> -->
         <ul class="flex flex-col gap-4 border-b pb-8 mb-3 mt-10">
           <li v-for="(item, index) in cart" :key="index">
             <div class="flex justify-between">
