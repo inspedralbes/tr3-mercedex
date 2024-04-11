@@ -1,7 +1,7 @@
 <template>
 
     <div class="bg-black">
-        <Header />
+        <LoginHeader class="py-4"/>
     </div>
     <div v-if="!mostrarCompraExitosa">
         <form @submit.prevent="comprar" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -123,9 +123,6 @@ export default {
                     this.mostrarModalLoader = false;
                 }
             }
-
-           
-
         }
     }
 }

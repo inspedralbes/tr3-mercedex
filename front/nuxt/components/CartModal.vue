@@ -3,10 +3,13 @@
   <div
     :class="{ 'fixed inset-y-0 -right-96 flex items-center  transition-all ease-in-out duration-1000 justify-center z-50 bg-black bg-opacity-50': true, 'openModal': mostrarCartModal }">
     <div class="h-full bg-white p-4 shadow-md w-96">
-      <button class="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-        @click="cerrarModal">Cerrar</button>
+      <button
+        class="hover:bg-red-500 hover:text-white hover:rotate-90 rounded-full p-1 absolute top-3 right-3 transition duration-500 ease-in-out"
+        @click="cerrarModal">
+        <CrossIcon />
+      </button>
       <h2 class="text-lg font-semibold mb-4">Tu carrito</h2>
-      <div v-if="cart.length > 0" class="overflow-y-auto">
+      <div v-if="cart.length > 0" class="overflow-y-auto h-[88%]">
         <ul class="flex flex-col gap-4 border-b pb-8 mb-8">
           <li v-for="(item, index) in cart" :key="index">
             <div class="flex justify-between">
@@ -32,18 +35,18 @@
         </ul>
       </div>
 
-      <div v-else class="flex items-center justify-center my-6">
+      <div v-else class="flex items-start justify-center h-[88%]">
         <p>Tu carrito está vacío.</p>
       </div>
 
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center py-2">
         <div class="flex flex-col">
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
-        <NuxtLink to="/compra"
+        <Button to="/compra" @click="goBuy"
           class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">
-          Comprar</NuxtLink>
+          Comprar</Button>
       </div>
 
     </div>
@@ -67,7 +70,7 @@ export default {
     const cart = useStores();
     return {
       mostrarCartModal: computed(() => cart.mostrarCartModal),
-      mostrarModalConfirmacion: false,
+      mostrarModalConfirmacion: computed(() => cart.mostrarConfirmationModal),
       itemAEliminar: null
     }
   },
@@ -83,11 +86,11 @@ export default {
     },
     mostrarConfirmacion(itemId) {
       this.itemAEliminar = itemId;
-      this.mostrarModalConfirmacion = true;
+      useStores().mostrarConfirmationModal = true;
     },
     eliminarDelCarrito() {
       useStores().removeFromCart(this.itemAEliminar);
-      this.mostrarModalConfirmacion = false;
+      useStores().mostrarConfirmationModal = false;
     },
     calcularTotal() {
       let total = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -107,6 +110,12 @@ export default {
         cart.decreaseQuantity(item.id);
         console.log('Restar');
       }
+    },
+    goBuy() {
+      this.cerrarModal();
+      setTimeout(() => {
+        this.$router.push('/compra');
+      }, 1000);
     }
   }
 }
