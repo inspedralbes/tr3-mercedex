@@ -28,6 +28,7 @@ class ApiRouteTest extends TestCase
             'stock' => 10,
             'price' => 100,
             'image' => 'path/to/image.jpg',
+            'category' => 'Test Category',
         ]);
 
         $data = [
