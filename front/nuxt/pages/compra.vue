@@ -3,10 +3,12 @@
     <div class="bg-black">
         <LoginHeader class="py-4" />
     </div>
-    <div class="mt-20">
-        <h1 class="text-center font-bold text-5xl">Formulario de Compra</h1>
-    </div>
+    
     <div v-if="!mostrarCompraExitosa">
+    <div class="mt-30 flex flex-col justify-center items-center gap-2 mt-4">
+        <h1 class="text-center font-bold text-5xl mt-5">Formulario de Compra</h1>
+        <hr class="h-[5px] bg-black w-[100px] mt-5">
+    </div>
     <section class="flex justify-center items-center gap-y-8 h-[80vh]">
         <div class="bg-[#1E1E1E] flex flex-col justify-center items-center py-8 px-6 relative w-[30%] h-[80%]">
             <div class="flex flex-col justify-center items-center">
@@ -19,7 +21,7 @@
                     <span class="block sm:inline">{{ this.message }}</span>
                 </div>
 
-                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Dirección" v-model="address">
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="ej: C/ nombre, Nº, piso" v-model="address">
 
                 <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Teléfono" v-model="phone" @input="phone = $event.target.value.replace(/[^0-9]/g, '')">
 
@@ -132,6 +134,10 @@ export default {
                     console.log('Compra realizada?:', response.data);
                     this.mostrarModalLoader = false;
                     this.mostrarCompraExitosa = true;
+                    const store = useStores();
+                    store.setCarttoArray();
+                    store.clearCart();
+                    console.log('Carrito limpio', store.cart);
                 } catch (error) {
                     console.error('Error:', error);
                     this.error = true;

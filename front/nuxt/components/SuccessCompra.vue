@@ -1,10 +1,15 @@
 <template>
   <div>
     <article class="flex flex-col justify-center items-center gap-2 mt-4">
-      <h1 class="font-semibold text-2xl">Compra realizada con éxito</h1>
+      <div class="mt-20">
+        <h1 class="text-center font-bold text-5xl">Resumen de tu compra</h1>
+        <hr class="h-[5px] bg-black w-100 mb-20">
+    </div>
+      <h1 class="font-semibold text-3xl">Compra realizada con éxito</h1>
       <p>Gracias por confiar en nosotros</p>
-      <NuxtLink to="/tienda" class="px-4 py-1 bg-black text-white rounded-md">
-        <button @click="volver()">Volver</button>
+      <img src="../public/img/check_image.png" class="w-[100px] h-[100px] mb-10" alt="">
+      <NuxtLink to="/tickets" class="px-4 py-1 bg-black text-white rounded-md mb-20">
+        <button class="text-lg">Ver mi pedido</button>
       </NuxtLink>
     </article>
 
@@ -45,13 +50,12 @@ export default {
     };
   },
   methods: {
-    volver() {
-      this.store.clearCart();
-    }
+
   },
   computed: {
     cart() {
-      return this.store.getCart();
+      console.log(this.store.getResumenCart());
+      return this.store.getResumenCart();
     }
   }
 }

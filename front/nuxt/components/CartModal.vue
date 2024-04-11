@@ -8,9 +8,15 @@
         @click="cerrarModal">
         <CrossIcon />
       </button>
-      <h2 class="text-lg font-semibold mb-4">Tu carrito</h2>
       <div v-if="cart.length > 0" class="overflow-y-auto h-[88%]">
-        <ul class="flex flex-col gap-4 border-b pb-8 mb-8">
+        <div class="flex flex-col items-center justify-center">
+          <h2 class="text-lg font-semibold">Mercedes-Benz Shop</h2>
+          <img src="../public/img/mercedes-logo.png" class=" mt-2 w-[50px]" alt="">
+        </div>
+        <div class="relative">
+          <div class="h-[4px] border-b border-transparent shadow-md mb-7 mt-4 absolute inset-x-0"></div>
+        </div>
+        <ul class="flex flex-col gap-4 border-b pb-8 mb-3 mt-10">
           <li v-for="(item, index) in cart" :key="index">
             <div class="flex justify-between">
               <img :src="item.image" class="size-32 object-contain bg-slate-200" alt="Imagen del producto">
@@ -18,15 +24,18 @@
               <div class="flex flex-col w-full gap-y-6 justify-between px-2">
                 <h3 class="text-sm font-semibold">{{ item.name }}</h3>
                 <div class="w-full flex justify-center items-center">
-                  <button class="px-3 bg-blue-200 border border-blue-200 hover:bg-blue-300"
+                  <button
+                    class="px-3 bg-black border border-black text-white hover:bg-white hover:text-black hover:border-black"
                     @click="changeQuantity(item, '-')">-</button>
-                  <p class="w-full text-center  border border-black">{{ item.quantity }}</p>
-                  <button class="px-3 bg-blue-200 hover:bg-blue-300" @click="changeQuantity(item, '+')">+</button>
+                  <p class="w-1/4 text-center border border-black">{{ item.quantity }}</p>
+                  <button
+                    class="px-3 bg-black border border-black text-white hover:bg-white hover:text-black hover:border-black"
+                    @click="changeQuantity(item, '+')">+</button>
                 </div>
                 <div class="flex justify-between items-center">
                   <button class="text-xs text-red-500 font-semibold"
                     @click="mostrarConfirmacion(item.id)">Quitar</button>
-                  <p class="text-sm font-semibold">{{ item.price }}€</p>
+                  <p class="text-sm font-bold"> {{ item.price }}€</p>
                 </div>
               </div>
 
@@ -35,18 +44,18 @@
         </ul>
       </div>
 
-      <div v-else class="flex items-start justify-center h-[88%]">
+      <div v-else class="flex items-center justify-center h-[88%]">
         <p>Tu carrito está vacío.</p>
       </div>
 
-      <div class="flex justify-between items-center py-2">
+      <div v-if="cart.length > 0" class="flex justify-between items-center py-2">
         <div class="flex flex-col">
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
-        <Button to="/compra" @click="goBuy"
+        <NuxtLink v-if="getLoggedIn()" :to="getLoggedIn() ? '/compra' : '/login'"
           class="bg-black py-2 px-6 rounded-md text-sm font-semibold border-2 border-black text-cWhite hover:text-black hover:bg-white transition duration-200 ease-in-out">
-          Comprar</Button>
+          Comprar</NuxtLink>
       </div>
 
     </div>
@@ -68,10 +77,12 @@ export default {
   },
   data() {
     const cart = useStores();
+
     return {
       mostrarCartModal: computed(() => cart.mostrarCartModal),
       mostrarModalConfirmacion: computed(() => cart.mostrarConfirmationModal),
-      itemAEliminar: null
+      itemAEliminar: null,
+      cartLength: computed(() => cart.cart.length)
     }
   },
   computed: {
@@ -96,6 +107,10 @@ export default {
       let total = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
       return total.toFixed(2);
     },
+    getLoggedIn() {
+      const store = useStores();
+      return store.getLoggedIn();
+    },
     cerrarModal() {
       const cart = useStores();
       cart.setCartModal(false);
@@ -114,7 +129,7 @@ export default {
     goBuy() {
       this.cerrarModal();
       setTimeout(() => {
-        this.$router.push('/compra');
+        this.$router.push(this.getLoggedIn() ? '/compra' : '/login');
       }, 1000);
     }
   }
