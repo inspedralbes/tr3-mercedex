@@ -37,12 +37,16 @@
     </div>
   </div>
   <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
+
 </template>
+
 
 <script>
 import { useStores } from '~/stores/counter';
 import Loader from '~/components/Loader.vue';
 import axios from 'axios';
+
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
 
 export default {
   data() {
@@ -67,8 +71,9 @@ export default {
   async mounted() {
     this.mostrarModalLoader = true;
     try {
-      const response = await axios.get('http://localhost:8000/api/products');
+      const response = await axios.get(`${url}/products`);
       this.productos = response.data.products;
+      console.log("Version actualizadadaaadadaa")
       console.log("Esta es la respuesta", this.productos);
       this.mostrarModalLoader = false;
     } catch (error) {
