@@ -1,38 +1,42 @@
 <template>
 
     <div class="bg-black">
-        <LoginHeader class="py-4"/>
+        <LoginHeader class="py-4" />
+    </div>
+    <div class="mt-20">
+        <h1 class="text-center font-bold text-5xl">Formulario de Compra</h1>
     </div>
     <div v-if="!mostrarCompraExitosa">
-        <form @submit.prevent="comprar" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div v-if="error" class="bg-red-500 text-white p-2 rounded">
-                <p>{{ this.message }}</p>
+    <section class="flex justify-center items-center gap-y-8 h-[80vh]">
+        <div class="bg-[#1E1E1E] flex flex-col justify-center items-center py-8 px-6 relative w-[30%] h-[80%]">
+            <div class="flex flex-col justify-center items-center">
+                <h1 class="text-center font-bold text-3xl text-white mb-5">Rellena los datos de envío!</h1>
+                <img src="../public/img/mercedes-logo.png" alt="">
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
-                    Dirección
-                </label>
-                <input v-model="address"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="address" type="text" placeholder="Dirección">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
-                    Teléfono
-                </label>
-                <input v-model="phone"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="phone" type="text" placeholder="Teléfono">
-            </div>
-            <div class="flex items-center justify-between">
-                <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    Comprar
-                </button>
-            </div>
-        </form>
-    </div>
+            <form @submit.prevent="comprar" class="flex flex-col gap-y-4 items-center w-[80%] ">
+
+                <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline">{{ this.message }}</span>
+                </div>
+
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Dirección" v-model="address">
+
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Teléfono" v-model="phone" @input="phone = $event.target.value.replace(/[^0-9]/g, '')">
+
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Código Postal" v-model="postal_code" @input="postal_code = $event.target.value.replace(/[^0-9]/g, '')">
+
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="Ciudad" v-model="city">
+
+                <input class="w-full border-b-2 border-white bg-transparent py-2 pl-2 focus:border-blue-300 outline-0 text-white" type="text" placeholder="País" v-model="country">
+
+                <div class="flex items-center justify-between">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Comprar</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>
 
     <Loader class="fixed top-0 left-0 w-full h-full" v-if="mostrarModalLoader"></Loader>
     <SuccessCompra v-if="mostrarCompraExitosa"></SuccessCompra>
@@ -55,6 +59,9 @@ export default {
             mostrarCompraExitosa: false,
             error: false,
             message: '',
+            postal_code: '',
+            city: '',
+            country: '',
         };
     },
     methods: {
@@ -73,12 +80,21 @@ export default {
             }));
             const token = useStores().userInfo.token;
             console.log(`Bearer ${token}`);
+            if (this.address === '' || this.phone === '' || this.postal_code === '' || this.city === '' || this.country === '') {
+                this.error = true;
+                this.message = 'Por favor, rellena todos los campos';
+                this.mostrarModalLoader = false;
+                return;
+            }
             try {
                 console.log("Compra realizada con éxito");
 
                 const response = await axios.post('http://localhost:8000/api/ventas', {
                     address: this.address,
                     phone: this.phone,
+                    postal_code: this.postal_code,
+                    city: this.city,
+                    country: this.country,
                     items
                 }, {
                     headers: {
@@ -115,7 +131,7 @@ export default {
                     });
                     console.log('Compra realizada?:', response.data);
                     this.mostrarModalLoader = false;
-                    this.mostrarCompraExitosa = true; 
+                    this.mostrarCompraExitosa = true;
                 } catch (error) {
                     console.error('Error:', error);
                     this.error = true;
