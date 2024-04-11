@@ -12,7 +12,9 @@ class ProductControllerTest extends TestCase
 
     public function test_get_all_products()
     {
-        Product::factory()->count(5)->create();
+        Product::factory()->count(5)->create([
+            'category' => 'Test Category',
+        ]);
 
         $response = $this->get('/api/products');
 

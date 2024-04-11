@@ -36,7 +36,7 @@
                 </div>
                 <div class="h-full w-80 w-[55%]">
                     <img class="h-full object-cover w-full"
-                        src="https://www.hdwallpapers.in/download/mercedes_amg_gt_r_2018_hd_4k-3840x2160.jpg" alt="">
+                        src="/img/img_login.jpg" alt="">
                 </div>
             </div>
         </section>

@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('lastname')->nullable();
             $table->string('status');
             $table->string('address');
-            $table->string('phone');
+            $table->string('postal_code');
+            $table->string('city');
+            $table->string('country');
+            $table->string('phone', 9);
             $table->string('email');
             $table->decimal('total', 8, 2);
             $table->unsignedBigInteger('user_id');

@@ -19,8 +19,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: Mercedes
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
     ports:
       - 3306:3306
     volumes:
@@ -45,7 +43,7 @@ services:
       - 8000:80
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
-    command: /bin/sh -c "composer install && chown -R www-data:www-data * && php artisan migrate --force && php artisan db:seed && apache2-foreground "
+    command: /bin/sh -c "composer install && chown -R www-data:www-data * && php artisan migrate --force && php artisan migrate:refresh --seed && apache2-foreground "
     restart: always
     depends_on:
       - db
@@ -63,5 +61,5 @@ services:
       - CHOKIDAR_USEPOLLING=true
     tmpfs:
       - /tmp
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install -g npm@10.5.1 && npm install && npm run dev"
 

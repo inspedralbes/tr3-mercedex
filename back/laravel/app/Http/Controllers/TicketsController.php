@@ -7,7 +7,6 @@ use App\Models\Ticket;
 use App\Models\Product;
 use App\Models\Ticket_Product;
 
-
 class TicketsController extends Controller
 {
     /**
@@ -16,6 +15,7 @@ class TicketsController extends Controller
     public function index(){
         // mostrar todos los tickets del usuario autenticado
         $tickets = Ticket::where('user_id', auth()->user()->id)->get();
+        
         $ticketsAllInfo = [];
         foreach ($tickets as $ticket) {
             $tickets_products = Ticket_Product::where('ticket_id', $ticket->id)->get();
@@ -35,6 +35,9 @@ class TicketsController extends Controller
             $ticket->products = $products;
             $ticketsAllInfo[] = $ticket;
         }
+        
+        
+
         return response()->json($ticketsAllInfo);
         
     }
@@ -69,9 +72,12 @@ class TicketsController extends Controller
         $validatedData = $request->validate([
             'name' => 'nullable|string',
             'lastname' => 'nullable|string',
+            'postal_code'=> 'required',
+            'city'=> 'required|string',
+            'country'=> 'required|string',
             'status' => 'string',
             'address' => 'required|string',
-            'phone' => 'required|string',
+            'phone' => 'required|string|max:9',
             'items' => 'required|array',
             'items.*.id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
@@ -85,6 +91,9 @@ class TicketsController extends Controller
         $ticket->address = $request->address;
         $ticket->phone = $request->phone;
         $ticket->total = $total;
+        $ticket->postal_code = $request->postal_code;
+        $ticket->city = $request->city;
+        $ticket->country = $request->country;
         $ticket->user_id = auth()->user()->id;
         $ticket->name = auth()->user()->name;
         $ticket->lastname = auth()->user()->lastname;
