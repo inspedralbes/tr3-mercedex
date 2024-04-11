@@ -21,7 +21,7 @@
   </div>
 
   <div class="grid grid-cols-3 gap-4">
-    <div class="bg-white m-16 p-14 rounded-lg shadow-md" v-for="(producto, index) in modelosFiltrados" :key="index"
+    <div class="bg-white m-16 p-14 rounded-lg shadow-md cursor-pointer" v-for="(producto, index) in modelosFiltrados" :key="index"
       :class="{ 'opacity-50': producto.stock === 0 }">
       <div v-if="producto.stock === 0" class="text-red-500 text-center">Este producto esta fuera de stock</div>
       <img :src="producto.image" alt="">
