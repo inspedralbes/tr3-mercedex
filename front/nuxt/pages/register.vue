@@ -80,12 +80,7 @@ export default {
     },
 
     methods: {
-        comprobar() {
-            console.log(this.email)
-            console.log(this.password);
-        },
-
-        async register() {
+       async register() {
             const store = useStores();
             this.mostrarModalLoader = true;
             try {
@@ -105,7 +100,6 @@ export default {
                 });
                 store.setLoggedIn(true);
                 this.$router.push('/tienda');
-                console.log(response.data);
                 this.mostrarModalLoader = false;
             } catch (error) {
                 console.error('Error:', error);

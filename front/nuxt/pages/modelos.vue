@@ -103,7 +103,6 @@ methods: {
     try {
       const response = await axios.get(`${url}/modelos`);
       this.modelos = response.data.modelos;
-      console.log("Esta es la respuesta", this.modelos);
     } catch (error) {
       console.error('Error:', error);
     } finally {

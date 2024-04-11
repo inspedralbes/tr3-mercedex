@@ -64,22 +64,15 @@ export default {
   },
 
   methods: {
-    comprobar() {
-      console.log(this.email)
-      console.log(this.password);
-    },
     async login() {
       const store = useStores(); 
       this.mostrarModalLoader = true;
       try {
-        console.log("Entra en login?");
 
         const response = await axios.post(`${url}/login`, {
           email: this.email,
           password: this.password
         });
-        console.log('Info User: ', response.data);
-        console.log("Token: ", response.data.data.user.name);
         
         store.setUserInfo({
           id: response.data.data.user.id,

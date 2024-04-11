@@ -60,7 +60,6 @@ export default {
   methods: {
     async añadirCarrito(producto) {
       useStores().addToCart(producto);
-      console.log("Producto añadido al carrito:", producto);
     }
   },
   computed: {
@@ -73,8 +72,6 @@ export default {
     try {
       const response = await axios.get(`${url}/products`);
       this.productos = response.data.products;
-      console.log("Version actualizadadaaadadaa")
-      console.log("Esta es la respuesta", this.productos);
       this.mostrarModalLoader = false;
     } catch (error) {
       console.error('Error:', error);

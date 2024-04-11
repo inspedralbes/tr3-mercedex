@@ -54,7 +54,6 @@ export default {
   },
   computed: {
     cart() {
-      console.log(this.store.getResumenCart());
       return this.store.getResumenCart();
     }
   }

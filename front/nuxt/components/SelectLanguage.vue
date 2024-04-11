@@ -37,7 +37,6 @@ export default {
 
       const newFlagUrl = `/img/flags/${value}.${extension}`;
       cart.setFlag(newFlagUrl);
-      console.log(cart.flag);
 
       this.dropDown();
     }

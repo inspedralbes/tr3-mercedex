@@ -54,14 +54,12 @@ export default {
             this.mostrarModalLoader = true;
             const store = useStores();
             const token = useStores().userInfo.token;
-            console.log(`Bearer ${token}`);
             try {
                 const response = axios.post(`${url}/logout`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log(response);
                 store.setLoggedIn(false);
                 store.userInfo = {};
                 this.$router.push('/');

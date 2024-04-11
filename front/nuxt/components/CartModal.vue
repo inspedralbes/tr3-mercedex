@@ -116,10 +116,8 @@ export default {
 
       if (ope === '+') {
         cart.addToCart(item);
-        console.log('Sumar');
       } else {
         cart.decreaseQuantity(item.id);
-        console.log('Restar');
       }
     },
     goBuy() {

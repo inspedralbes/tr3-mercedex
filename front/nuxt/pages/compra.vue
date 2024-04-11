@@ -84,7 +84,6 @@ export default {
                 quantity: item.quantity
             }));
             const token = useStores().userInfo.token;
-            console.log(`Bearer ${token}`);
             if (this.address === '' || this.phone === '' || this.postal_code === '' || this.city === '' || this.country === '') {
                 this.error = true;
                 this.message = 'Por favor, rellena todos los campos';
@@ -92,7 +91,6 @@ export default {
                 return;
             }
             try {
-                console.log("Compra realizada con éxito");
 
                 const response = await axios.post(`${url}/ventas`, {
                     address: this.address,
@@ -107,7 +105,6 @@ export default {
                     }
                 });
 
-                console.log('Compra realizada?:', response.data.id);
                 this.TicketId = response.data.id;
                 this.fetchOkey = true;
 
@@ -134,13 +131,11 @@ export default {
                             Authorization: `Bearer ${token}`
                         }
                     });
-                    console.log('Compra realizada?:', response.data);
                     this.mostrarModalLoader = false;
                     this.mostrarCompraExitosa = true;
                     const store = useStores();
                     store.setCarttoArray();
                     store.clearCart();
-                    console.log('Carrito limpio', store.cart);
                 } catch (error) {
                     console.error('Error:', error);
                     this.error = true;

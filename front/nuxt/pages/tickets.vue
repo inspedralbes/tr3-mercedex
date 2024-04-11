@@ -69,11 +69,9 @@ export default {
                     }
                 });
                 window.location.reload();
-                console.log("Respuesta:", response.data);
                 this.mostrarModalLoader = false;
 
             } catch (error) {
-                console.log('Error:', error);
                 this.mostrarModalLoader = false;
             }
         },
@@ -95,7 +93,6 @@ export default {
                 }
             });
             this.tickets = response.data;
-            console.log("Esta es la respuesta", this.tickets);
             this.mostrarModalLoader = false;
         } catch (error) {
             console.error('Error:', error);
