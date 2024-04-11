@@ -44,9 +44,9 @@
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
-        <NuxtLink to="/compra"
+        <Button to="/compra" @click="goBuy"
           class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">
-          Comprar</NuxtLink>
+          Comprar</Button>
       </div>
 
     </div>
@@ -70,7 +70,7 @@ export default {
     const cart = useStores();
     return {
       mostrarCartModal: computed(() => cart.mostrarCartModal),
-      mostrarModalConfirmacion: false,
+      mostrarModalConfirmacion: computed(() => cart.mostrarConfirmationModal),
       itemAEliminar: null
     }
   },
@@ -86,11 +86,11 @@ export default {
     },
     mostrarConfirmacion(itemId) {
       this.itemAEliminar = itemId;
-      this.mostrarModalConfirmacion = true;
+      useStores().mostrarConfirmationModal = true;
     },
     eliminarDelCarrito() {
       useStores().removeFromCart(this.itemAEliminar);
-      this.mostrarModalConfirmacion = false;
+      useStores().mostrarConfirmationModal = false;
     },
     calcularTotal() {
       let total = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -110,6 +110,12 @@ export default {
         cart.decreaseQuantity(item.id);
         console.log('Restar');
       }
+    },
+    goBuy() {
+      this.cerrarModal();
+      setTimeout(() => {
+        this.$router.push('/compra');
+      }, 1000);
     }
   }
 }

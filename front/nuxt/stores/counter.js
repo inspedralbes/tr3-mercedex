@@ -4,6 +4,7 @@ export const useStores = defineStore("counter",{
     state: () => ({
         cart: [],
         mostrarCartModal: false,
+        mostrarConfirmationModal: false,
         flag: "/img/flags/spain.jpg",
         loggedIn: false,
         userInfo: {
