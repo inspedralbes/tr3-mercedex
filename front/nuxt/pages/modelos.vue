@@ -56,6 +56,9 @@
 import Loader from '~/components/Loader.vue';
 import axios from 'axios';
 
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
+
 export default {
   components: {
     Loader
@@ -98,7 +101,7 @@ methods: {
   async cargarModelos() {
     this.mostrarModalLoader = true;
     try {
-      const response = await axios.get('http://localhost:8000/api/modelos');
+      const response = await axios.get(`${url}/modelos`);
       this.modelos = response.data.modelos;
       console.log("Esta es la respuesta", this.modelos);
     } catch (error) {
