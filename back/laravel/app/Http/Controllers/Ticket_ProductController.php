@@ -72,7 +72,7 @@ class Ticket_ProductController extends Controller
 
 
         $ticket = Ticket::findOrFail($ticketId);
-        $productos = Product::select('name', 'image', 'ticket_product.quantity')
+        $productos = Product::select('name', 'image', 'price', 'ticket_product.quantity')
             ->join('ticket_product', 'products.id', '=', 'ticket_product.product_id')
             ->where('ticket_product.ticket_id', $ticketId)
             ->get();
