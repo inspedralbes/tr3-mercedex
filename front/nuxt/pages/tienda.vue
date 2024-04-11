@@ -31,7 +31,7 @@
         <p class="text-3xl font-bold">{{ producto.price }}€</p>
       </div>
       <div class="flex justify-center items-center mt-5">
-        <button class="bg-black text-white py-3 px-20 rounded" @click="añadirCarrito(producto)"
+        <button class="bg-black text-white py-3 px-20 rounded border-2 border-black hover:bg-white hover:text-black transition duration-200 ease-in-out" @click="añadirCarrito(producto)"
           :disabled="producto.stock === 0">Añadir al carro</button>
       </div>
     </div>
