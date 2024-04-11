@@ -12,16 +12,11 @@
         <h2 class="text-lg font-semibold">Mercedes-Benz Shop</h2>
         <img src="../public/img/mercedes-logo.png" class=" mt-2 w-[50px]" alt="">
       </div>
-      <div v-if="cart.length > 0" class="overflow-y-auto h-[88%]">
-
-        <!-- <div class="relative">
-          <div class="h-[4px] border-b border-transparent shadow-md mb-7 mt-4 absolute inset-x-0"></div>
-        </div> -->
+      <div v-if="cart.length > 0" class="overflow-y-scroll h-[77%]">
         <ul class="flex flex-col gap-4 border-b pb-8 mb-3 mt-10">
           <li v-for="(item, index) in cart" :key="index">
             <div class="flex justify-between">
               <img :src="item.image" class="size-32 object-contain bg-slate-200" alt="Imagen del producto">
-
               <div class="flex flex-col w-full gap-y-6 justify-between px-2">
                 <h3 class="text-sm font-semibold">{{ item.name }}</h3>
                 <div class="w-full flex justify-center items-center">
@@ -49,7 +44,7 @@
         <p>Tu carrito está vacío.</p>
       </div>
 
-      <div v-if="cart.length > 0" class="flex justify-between items-center py-2">
+      <div v-if="cart.length > 0" class="flex justify-between items-center py-2 mt-5">
         <div class="flex flex-col">
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
