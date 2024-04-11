@@ -45,7 +45,7 @@
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
         <Button to="/compra" @click="goBuy"
-          class="bg-primary py-2 px-6 rounded-md text-sm font-semibold text-cWhite hover:bg-primary_dark transition duration-200 ease-in-out">
+          class="bg-black py-2 px-6 rounded-md text-sm font-semibold border-2 border-black text-cWhite hover:text-black hover:bg-white transition duration-200 ease-in-out">
           Comprar</Button>
       </div>
 
