@@ -54,6 +54,7 @@ export default {
   },
   computed: {
     cart() {
+      this.store.mostrarCartModal = false;
       return this.store.getResumenCart();
     }
   }
