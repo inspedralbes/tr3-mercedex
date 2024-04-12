@@ -42,6 +42,8 @@
 import { useStores } from '~/stores/counter';
 import axios from 'axios';
 import Loader from '~/components/Loader.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
 
 export default {
     data() {
@@ -61,17 +63,15 @@ export default {
             }
 
             try {
-                const response = await axios.post(`http://localhost:8000/api/cancelar/${id}`, null, {
+                const response = await axios.post(`${url}/cancelar/${id}`, null, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.reload();
-                console.log("Respuesta:", response.data);
                 this.mostrarModalLoader = false;
 
             } catch (error) {
-                console.log('Error:', error);
                 this.mostrarModalLoader = false;
             }
         },
@@ -87,13 +87,12 @@ export default {
         }
 
         try {
-            const response = await axios.get('http://localhost:8000/api/tickets', {
+            const response = await axios.get(`${url}/tickets`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
             this.tickets = response.data;
-            console.log("Esta es la respuesta", this.tickets);
             this.mostrarModalLoader = false;
         } catch (error) {
             console.error('Error:', error);

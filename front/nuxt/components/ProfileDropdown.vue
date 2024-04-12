@@ -32,6 +32,7 @@ import { useStores } from '@/stores/counter';
 import axios from 'axios';
 import { computed } from 'vue'
 import Loader from '~/components/Loader.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
 
 
 export default {
@@ -53,16 +54,15 @@ export default {
             this.mostrarModalLoader = true;
             const store = useStores();
             const token = useStores().userInfo.token;
-            console.log(`Bearer ${token}`);
             try {
-                const response = axios.post('http://localhost:8000/api/logout', {}, {
+                const response = axios.post(`${url}/logout`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log(response);
                 store.setLoggedIn(false);
                 store.userInfo = {};
+                store.clearCart();
                 this.$router.push('/');
                 this.mostrarModalLoader = false;
             } catch (error) {

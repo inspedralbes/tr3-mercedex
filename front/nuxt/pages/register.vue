@@ -62,6 +62,8 @@
 import axios from 'axios';
 import { useStores } from '~/stores/counter';
 import Loader from '~/components/Loader.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
 
 export default {
     data() {
@@ -78,16 +80,11 @@ export default {
     },
 
     methods: {
-        comprobar() {
-            console.log(this.email)
-            console.log(this.password);
-        },
-
-        async register() {
+       async register() {
             const store = useStores();
             this.mostrarModalLoader = true;
             try {
-                const response = await axios.post('http://localhost:8000/api/register', {
+                const response = await axios.post(`${url}/register`, {
                     email: this.email,
                     name: this.name,
                     surnames: this.surnames,
@@ -103,7 +100,6 @@ export default {
                 });
                 store.setLoggedIn(true);
                 this.$router.push('/tienda');
-                console.log(response.data);
                 this.mostrarModalLoader = false;
             } catch (error) {
                 console.error('Error:', error);

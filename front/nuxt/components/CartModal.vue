@@ -49,7 +49,7 @@
           <p class="text-sm">Total</p>
           <p class="text-lg font-semibold">{{ calcularTotal() }}€</p>
         </div>
-        <NuxtLink v-if="getLoggedIn()" :to="getLoggedIn() ? '/compra' : '/login'"
+        <NuxtLink :to="getLoggedIn() ? '/compra' : '/login'"
           class="bg-black py-2 px-6 rounded-md text-sm font-semibold border-2 border-black text-cWhite hover:text-black hover:bg-white transition duration-200 ease-in-out">
           Comprar</NuxtLink>
       </div>
@@ -116,10 +116,8 @@ export default {
 
       if (ope === '+') {
         cart.addToCart(item);
-        console.log('Sumar');
       } else {
         cart.decreaseQuantity(item.id);
-        console.log('Restar');
       }
     },
     goBuy() {

@@ -50,6 +50,9 @@ import { useStores } from '~/stores/counter';
 import axios from 'axios';
 import Loader from '~/components/Loader.vue';
 import SuccessCompra from '~/components/SuccessCompra.vue';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
+
 export default {
     data() {
         return {
@@ -81,7 +84,6 @@ export default {
                 quantity: item.quantity
             }));
             const token = useStores().userInfo.token;
-            console.log(`Bearer ${token}`);
             if (this.address === '' || this.phone === '' || this.postal_code === '' || this.city === '' || this.country === '') {
                 this.error = true;
                 this.message = 'Por favor, rellena todos los campos';
@@ -89,9 +91,8 @@ export default {
                 return;
             }
             try {
-                console.log("Compra realizada con éxito");
 
-                const response = await axios.post('http://localhost:8000/api/ventas', {
+                const response = await axios.post(`${url}/ventas`, {
                     address: this.address,
                     phone: this.phone,
                     postal_code: this.postal_code,
@@ -104,7 +105,6 @@ export default {
                     }
                 });
 
-                console.log('Compra realizada?:', response.data.id);
                 this.TicketId = response.data.id;
                 this.fetchOkey = true;
 
@@ -124,20 +124,18 @@ export default {
 
             if (this.fetchOkey) {
                 try {
-                    const response = await axios.post(`http://localhost:8000/api/tickets_product/${ticketId}`, {
+                    const response = await axios.post(`${url}/tickets_product/${ticketId}`, {
                         products: items_2,
                     }, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     });
-                    console.log('Compra realizada?:', response.data);
                     this.mostrarModalLoader = false;
                     this.mostrarCompraExitosa = true;
                     const store = useStores();
                     store.setCarttoArray();
                     store.clearCart();
-                    console.log('Carrito limpio', store.cart);
                 } catch (error) {
                     console.error('Error:', error);
                     this.error = true;

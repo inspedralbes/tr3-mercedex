@@ -49,6 +49,8 @@
 import { useStores } from '~/stores/counter';
 import Loader from '~/components/Loader.vue';
 import axios from 'axios';
+const url = "https://mercedex.daw.inspedralbes.cat/back/laravel/public/api";
+
 
 export default {
   data() {
@@ -62,22 +64,15 @@ export default {
   },
 
   methods: {
-    comprobar() {
-      console.log(this.email)
-      console.log(this.password);
-    },
     async login() {
       const store = useStores(); 
       this.mostrarModalLoader = true;
       try {
-        console.log("Entra en login?");
 
-        const response = await axios.post('http://localhost:8000/api/login', {
+        const response = await axios.post(`${url}/login`, {
           email: this.email,
           password: this.password
         });
-        console.log('Info User: ', response.data);
-        console.log("Token: ", response.data.data.user.name);
         
         store.setUserInfo({
           id: response.data.data.user.id,
