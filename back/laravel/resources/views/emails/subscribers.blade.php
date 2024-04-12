@@ -18,10 +18,12 @@
     <h2 style="color: white; text-align: center;font-weight:bold;font-size:16px;margin-top:50px;">Gracias por tu compra!</h2>
     <div style="background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 0 auto 20px; max-width: 400px;">
         <h2 style="color: #333; text-align: center;font-size:27px;font-weight:bolder;">Información del Pedido</h2>
-        <p style="color: #333; text-align: center;font-weight:bold;">Numero de pedido: {{ $ticket->id }}</p>
-        <p style="color: #333; text-align: center;font-weight:bold;">Número de teléfono: {{ $ticket->phone }}</p>
-        <p style="color: #333; text-align: center;font-weight:bold;">Dirección de envío: {{ $ticket->address }}</p>
-        <p style="color: #333; text-align: center;font-weight:bold;">Total: {{ $ticket->total }}€</p>
+        <p style="color: #333; text-align: center;font-weight:bold;">Numero de pedido: <span style="font-weight:normal;">{{ $ticket->id }}</span></p>
+        <p style="color: #333; text-align: center;font-weight:bold;">Número de teléfono: <span style="font-weight:normal;">{{ $ticket->phone }}</span></p>
+        <p style="color: #333; text-align: center;font-weight:bold;">Dirección de envío: <span style="font-weight:normal;">{{ $ticket->address }}</span></p>
+        <p style="color: #333; text-align: center;font-weight:bold;">País: <span style="font-weight:normal;">{{ $ticket->country }}</span></p>
+        <p style="color: #333; text-align: center;font-weight:bold;">Ciudad: <span style="font-weight:normal;">{{ $ticket->city }}</span></p>
+        <p style="color: #333; text-align: center;font-weight:bold;">Total: <span style="font-weight:normal;">{{ $ticket->total }}€</span></p>
     </div>
 
     <h2 style="color: white; text-align: center;font-weight:bold;font-size:16px;">Productos comprados:</h2>
