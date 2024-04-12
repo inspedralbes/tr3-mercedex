@@ -36,7 +36,16 @@ INSERT INTO products (name, description, image, price, stock, category) VALUES
 ('Adaptador', 'Sistema de carga flexible Pro, Adaptador, Tipo G (UK)', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/configurator_1025x589/185222.png', 95.11, 400, 'Cargadores'),
 ('Adaptador', 'Sistema de carga flexible Pro, Adaptador, Tipo G (UK)', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/configurator_1025x589/185222.png', 95.11, 400, 'Cargadores'),
 ('Bolsa', 'Sistema de carga flexible, Bolsa', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/configurator_1025x589/180846.png', 79.40, 400, 'Cargadores'),
-('Cerradura', 'Sistema de carga flexible, Cerradura de seguridad', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/configurator_1025x589/180845.png', 22.54, 400, 'Cargadores');
+('Cerradura', 'Sistema de carga flexible, Cerradura de seguridad', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/configurator_1025x589/180845.png', 22.54, 400, 'Cargadores'),
+('Fragancia', 'Fragancia para ambientación, Fig Tree, 200 ml', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/187852.png', 108.42, 400, 'Accesorios'),
+('Peluche', 'Perro con cabeza basculante', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/32885.png', 52.90, 400, 'Accesorios'),
+('Vela perfumada', 'Vela perfumada, Fig Tree, 180g', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/187851.png', 91.51, 400, 'Accesorios'),
+('Pisapapeles', 'Pisapapeles', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/70255.png', 166.27, 400, 'Accesorios'),
+('Auriculares', 'Auriculares intraurales AMG, MW08 Sport, inalámbrico', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/184877.png', 604.59, 400, 'Accesorios'),
+('Memoria USB', 'Memoria USB Mercedes-AMG G 65', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/60245.png', 28.01, 400, 'Accesorios'),
+('Estación de carga', 'Estación de carga AMG, MC100, inductivo', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/184856.png', 120.93, 400, 'Accesorios'),
+('Linterna', 'Linterna de LED, pequeño', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/56793.png', 37.79, 400, 'Accesorios'),
+('Climber', 'Climber', 'https://customersolutions-media.mercedes-benz.com/medienbank_im/shop_big/52720.png', 63.48, 400, 'Accesorios');
 
 INSERT INTO models (name, image,type,bodywork) VALUES
 ('EQE Berlina','https://assets.oneweb.mercedes-benz.com/iris/iris.png?COSY-EU-100-1713d0VXq0WFqtyO67PobzIr3eWsrrCsdRRzwQZgk4ZbMw3SGtGyWtsd0o9cUfpUWXGEuiRJ0l3IrOB2Nz2bApj7oI5uxoMQC31grkzNwtnm7jA2jhKViSF%25vq4vZyLRgY2YaxPtxrH1yC%25n8w0hyoiZBJYM4FvIFTg9Lt26PDa1FSeWHn3tsd8BQcUfiA1XGE5nmJ0lCrnOIJtR1q0goiZCkuM4F8CQTg9jiw6PDe7oSeWsKjtsdUvGcUaqKDTb32VXq0J70tef%25XEd9BBpxb1loE1JnwxV4V%25d%25CWLH59zW0uB16E1&imgt=P27&bkgnd=9&pov=BE140&uni=cs&im=Crop,rect=(0,0,1450,750),gravity=Center;Resize,width=300','Eléctrico', 'Berlina' ),
