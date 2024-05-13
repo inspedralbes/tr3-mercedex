@@ -1,12 +1,4 @@
 # Documentació bàsica del projecte
-Alguns dels punts que han de quedar explicats:
- * Objectius
- * Arquitectura bàsica
-   * Tecnologies utilitzades
-   * Interrelació entre els diversos components
- * Com crees l'entorn de desenvolupament
- * Com desplegues l'aplicació a producció
- * Llistat d'endpoints de l'API de backend
-    * Rutes
-   * Exemples de JSON de peticó
-   * Exemples de JSON de resposta i els seus codis d'estat 200? 404?
+Video del Projecte al drive, y zip a /doc:
+ * (https://drive.google.com/file/d/1zFYQUG5qHyIlkp0_zRBbcLStm8seQxgm/view?usp=sharing)
+
